@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View view) {
              Random r=new Random();
-             int num1=r.nextInt(10)+1;
-             int num2=r.nextInt(10)+1;
+             num1=r.nextInt(10)+1;
+             num2=r.nextInt(10)+1;
 
             firstNum.setText(num1+"");
             secNum.setText(num2+"");
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View view) {
              Random r=new Random();
-             int num1=r.nextInt(9)+1;
-             int num2=r.nextInt(90)+10;
+              num1=r.nextInt(9)+1;
+              num2=r.nextInt(90)+10;
 
              firstNum.setText(num1+"");
              secNum.setText(num2+"");
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View view) {
              Random r=new Random();
-             int num1=r.nextInt(9)+1;
-             int num2=r.nextInt(20)+10;
+              num1=r.nextInt(9)+1;
+              num2=r.nextInt(20)+10;
 
              firstNum.setText(num1+"");
              secNum.setText(num2+"");
@@ -82,34 +82,24 @@ public class MainActivity extends AppCompatActivity {
      });
 
      firstNum=findViewById(R.id.firstNum);
-     firstNum.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
 
-         }
-     });
 
      secNum=findViewById(R.id.secNum);
-     secNum.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
 
-         }
-     });
 
      multiply=findViewById(R.id.multiply1);
      equals=findViewById(R.id.equals);
 
      answer=findViewById(R.id.answer);
-     answer.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
 
-         }
-     });
 
      save=findViewById(R.id.save);
+    save.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
+        }
+    });
 
 
      saveUsers=findViewById(R.id.showUsers);
@@ -125,14 +115,14 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View view) {
              String s = answer.getText().toString();
-             userAnswer=Integer.valueOf(s);
-                if(num1*num2==userAnswer) {
-                    Toast.makeText(MainActivity.this, "well done! you got it right", Toast.LENGTH_SHORT).show();
-                }
-                    else
-                    {
-                        Toast.makeText(MainActivity.this, "you got it wrong, try again!", Toast.LENGTH_SHORT).show();
-                    }
+             if(num1*num2==Integer.valueOf(s))
+             {
+                 Toast.makeText(MainActivity.this, "well done! you got it right", Toast.LENGTH_SHORT).show();
+             }
+             else
+             {
+                 Toast.makeText(MainActivity.this, "you got it wrong, try again!", Toast.LENGTH_SHORT).show();
+             }
 
 
          }
