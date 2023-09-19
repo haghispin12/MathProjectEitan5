@@ -75,9 +75,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20sp"
             android:id="@+id/firstNum"
-            android:textColorHint="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
             android:background="@color/teal_200"
             android:gravity="center"            />
 
@@ -86,6 +87,7 @@
             android:layout_height="50dp"
             android:id="@+id/multiply1"
             android:text="X"
+
             android:textColor="@color/black"
             android:textSize="25sp"
             android:gravity="center"
@@ -95,9 +97,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20sp"
             android:id="@+id/secNum"
-            android:textColorHint="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
             android:background="@color/teal_200"
             android:layout_marginTop="8dp"
             android:gravity="center"
@@ -117,8 +120,12 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20sp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
             android:hint="Answer"
+
+            android:inputType="number"
             android:id="@+id/answer"
             android:textColorHint="@color/black"
             android:background="@color/teal_200"
@@ -130,7 +137,8 @@
             android:layout_width="match_parent"
             android:id="@+id/check"
             android:layout_height="50dp"
-            android:text="Check" />
+            android:text="Check"
+            />
 
 
     </LinearLayout>
