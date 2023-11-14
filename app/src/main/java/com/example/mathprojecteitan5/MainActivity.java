@@ -1,6 +1,9 @@
 package com.example.mathprojecteitan5;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,34 +27,61 @@ public class MainActivity extends AppCompatActivity {
     private Button saveUsers;
     private Button check;
     int userAnswer;
-    int num1;
-    int num2;
+    Exercise e1=new Exercise();
+    public MainViewModel viewModelMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        intView();
+        viewModelMain = new ViewModelProvider(this).get(MainViewModel.class);
+        viewModelMain.vNum1.observe(this, new Observer<Integer>() {
+
+            @Override
+
+            public void onChanged(Integer num1) {
+
+                firstNum.setText(num1+"");
+
+            }
+
+        });
+
+        viewModelMain.vNum2.observe(this, new Observer<Integer>() {
+
+            @Override
+
+            public void onChanged(Integer num2) {
+
+                secNum.setText(num2+"");
+
+            }
+
+        });
+
     }
 
     private void intView(){
-     mathExercise=findViewById(R.id.mathExercise);
-     mathExercise.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-           //test
-         }
-     });
+
+        firstNum=findViewById(R.id.firstNum);
+
+
+        secNum=findViewById(R.id.secNum);
+
+
+        multiply=findViewById(R.id.multiply1);
+        equals=findViewById(R.id.equals);
+
+        answer=findViewById(R.id.answer);
 
      bMltb=findViewById(R.id.bMltb);
      bMltb.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-             Random r=new Random();
-             num1=r.nextInt(10)+1;
-             num2=r.nextInt(10)+1;
+             answer.setText("");
+            viewModelMain.mullBrd();
 
-            firstNum.setText(num1+"");
-            secNum.setText(num2+"");
 
          }
      });
@@ -60,37 +90,21 @@ public class MainActivity extends AppCompatActivity {
      challenge.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-             Random r=new Random();
-              num1=r.nextInt(9)+1;
-              num2=r.nextInt(90)+10;
+             answer.setText("");
+             viewModelMain.challenge();
 
-             firstNum.setText(num1+"");
-             secNum.setText(num2+"");
          }
      });
      xTill20=findViewById(R.id.xTill20);
      xTill20.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-             Random r=new Random();
-              num1=r.nextInt(9)+1;
-              num2=r.nextInt(20)+10;
-
-             firstNum.setText(num1+"");
-             secNum.setText(num2+"");
+             answer.setText("");
+             viewModelMain.x20();
          }
      });
 
-     firstNum=findViewById(R.id.firstNum);
 
-
-     secNum=findViewById(R.id.secNum);
-
-
-     multiply=findViewById(R.id.multiply1);
-     equals=findViewById(R.id.equals);
-
-     answer=findViewById(R.id.answer);
 
 
      save=findViewById(R.id.save);
@@ -114,20 +128,10 @@ public class MainActivity extends AppCompatActivity {
      check.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-             String s = answer.getText().toString();
-             if(num1*num2==Integer.valueOf(s))
-             {
-                 Toast.makeText(MainActivity.this, "well done! you got it right", Toast.LENGTH_SHORT).show();
-             }
-             else
-             {
-                 Toast.makeText(MainActivity.this, "you got it wrong, try again!", Toast.LENGTH_SHORT).show();
-             }
 
-
+             Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_SHORT).show();
          }
      });
-
 
 
     }
