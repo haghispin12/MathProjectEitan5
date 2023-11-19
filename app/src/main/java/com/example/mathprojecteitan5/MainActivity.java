@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private Button save;
     private Button saveUsers;
     private Button check;
-    int userAnswer;
-    Exercise e1=new Exercise();
+    private EditText userAnswer;
     public MainViewModel viewModelMain;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
          }
      });
+
+
 
      challenge=findViewById(R.id.challenge);
      challenge.setOnClickListener(new View.OnClickListener() {
