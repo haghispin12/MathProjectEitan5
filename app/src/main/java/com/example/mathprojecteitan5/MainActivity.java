@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         userAnswer=findViewById(R.id.userAnswer);
         String user1=getIntent().getStringExtra("username");
         Toast.makeText(MainActivity.this, "Welcome "+user1, Toast.LENGTH_LONG).show();
-        userAnswer.setText(user1+"");
+        userAnswer.setText(user1+",  ");
         viewModelMain.setUSerName(user1);
 
 
