@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button save;
     private Button saveUsers;
     private Button check;
-    private EditText userAnswer;
+    private TextView userAnswer;
     public MainViewModel viewModelMain;
 
 
@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        intView();
+
         viewModelMain = new ViewModelProvider(this).get(MainViewModel.class);
         viewModelMain.vNum1.observe(this, new Observer<Integer>() {
-
             @Override
 
             public void onChanged(Integer num1) {
@@ -47,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        userAnswer=findViewById(R.id.userAnswer);
+        String user1=getIntent().getStringExtra("username");
+        Toast.makeText(MainActivity.this, "Welcome "+user1, Toast.LENGTH_LONG).show();
+        userAnswer.setText(user1+"");
+        viewModelMain.setUSerName(user1);
+
 
         viewModelMain.vNum2.observe(this, new Observer<Integer>() {
 
@@ -131,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View view) {
 
-             Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_SHORT).show();
+             Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_LONG).show();
          }
      });
 
