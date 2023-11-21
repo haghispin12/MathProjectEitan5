@@ -10,31 +10,36 @@ public class MainViewModel extends ViewModel {
     int type;
     MutableLiveData<Integer> vNum1= new MutableLiveData<>();
     MutableLiveData<Integer> vNum2= new MutableLiveData<>();
+    MutableLiveData<Integer> vScore= new MutableLiveData<>();
     Exercise e2= new Exercise();
     public void mullBrd()
     {
-        type=1;
+        type=5;
         vNum1.setValue(e2.mullBrd());
         vNum2.setValue(e2.mullBrd());
     }
     public void x20()
     {
-        type=2;
+        type=10;
         vNum1.setValue(e2.X20());
         vNum2.setValue(e2.X20());
 
     }
     public void challenge()
     {
-        type=3;
+        type=20;
         vNum1.setValue(e2.challange());
         vNum2.setValue(e2.challange());
 
     }
 
      public String answer (EditText answer) {
-       return e2.answer(answer);
-
+       String tmpAns=e2.answer(answer);
+       if(tmpAns.equals("Well Done!!!")) {
+           userV.Cscore(type);
+           vScore.setValue(userV.getScore());
+       }
+            return tmpAns;
      }
 public void setUSerName (String username){
         userV.setName(username);

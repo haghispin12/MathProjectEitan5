@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button check;
     private TextView userAnswer;
     public MainViewModel viewModelMain;
-
+    private TextView score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
        intView();
 
+       score=findViewById(R.id.score);
         viewModelMain = new ViewModelProvider(this).get(MainViewModel.class);
         viewModelMain.vNum1.observe(this, new Observer<Integer>() {
             @Override
@@ -46,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        viewModelMain.vScore.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer num2) {
+                score.setText("score: "+num2);
+            }
         });
 
         userAnswer=findViewById(R.id.userAnswer);

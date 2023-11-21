@@ -11,4 +11,12 @@ public class userName {
  public void setName(String name) {
   this.name = name;
  }
+
+ public void Cscore (int scoreType){
+  score+=scoreType;
+ }
+
+ public int getScore() {
+  return score;
+ }
 }
