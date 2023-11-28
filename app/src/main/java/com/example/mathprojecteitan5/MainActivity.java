@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView userAnswer;
     public MainViewModel viewModelMain;
     private TextView score;
-    private Button saveRate;
+    private Button MainRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,17 +115,17 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result){
-                    int myrate=result.getData().getIntExtra("rate",-1);
+                    int myRate=result.getData().getIntExtra("rate",-1);
+                    Toast.makeText(MainActivity.this, "thank you for rating "+myRate+"!", Toast.LENGTH_LONG).show();
                 }
             }
     );
-     saveRate=findViewById(R.id.saveRate);
-     saveRate.setOnClickListener(new View.OnClickListener() {
+     MainRate=findViewById(R.id.MainRate);
+     MainRate.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
              Intent intent=new Intent(MainActivity.this, Rate.class);
               activityResultLauncher.launch(intent);
-
          }
      });
 
