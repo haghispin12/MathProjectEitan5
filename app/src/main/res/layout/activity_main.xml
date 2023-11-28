@@ -40,6 +40,14 @@
         android:id="@+id/score"
         />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:text="Rate"
+            android:backgroundTint="@color/yellow"
+            />
 
     </LinearLayout>
 

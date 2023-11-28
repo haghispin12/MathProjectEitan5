@@ -1,9 +1,15 @@
 package com.example.mathprojecteitan5;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView userAnswer;
     public MainViewModel viewModelMain;
     private TextView score;
+    private Button saveRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void intView(){
 
+
         firstNum=findViewById(R.id.firstNum);
 
 
@@ -101,6 +109,25 @@ public class MainActivity extends AppCompatActivity {
          }
      });
 
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result){
+                    int myrate=result.getData().getIntExtra("rate",-1);
+                }
+            }
+    );
+     saveRate=findViewById(R.id.saveRate);
+     saveRate.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             Intent intent=new Intent(MainActivity.this, Rate.class);
+              activityResultLauncher.launch(intent);
+
+         }
+     });
 
 
      challenge=findViewById(R.id.challenge);
@@ -146,9 +173,12 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View view) {
 
-             Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_LONG).show();
+             Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_SHORT).show();
          }
      });
+
+
+
 
 
     }
