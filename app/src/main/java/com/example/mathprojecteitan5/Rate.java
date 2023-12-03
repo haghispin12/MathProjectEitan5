@@ -7,16 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
-public class Rate extends AppCompatActivity {
+public class Rate extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 private SeekBar sb;
 private Button saveRate;
+private TextView showRate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
+        showRate=findViewById(R.id.showRate);
         saveRate=findViewById(R.id.saveRate);
         sb=findViewById(R.id.skBar);
+        sb.setOnSeekBarChangeListener(this);
                 main();
     }
 
@@ -32,6 +36,20 @@ private Button saveRate;
                 finish();
             }
         });
+
+    }
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+    showRate.setText(i+"");
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
 }

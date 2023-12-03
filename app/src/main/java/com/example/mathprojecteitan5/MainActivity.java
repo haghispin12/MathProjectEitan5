@@ -116,9 +116,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result){
                     int myRate=result.getData().getIntExtra("rate",-1);
+                    if(myRate>4)
                     Toast.makeText(MainActivity.this, "thank you for rating "+myRate+"!", Toast.LENGTH_LONG).show();
+                    else if(myRate<5)
+                        Toast.makeText(MainActivity.this, "please tell us more why you rated "+myRate+", ty!", Toast.LENGTH_LONG).show();
+
                 }
             }
+
     );
      MainRate=findViewById(R.id.MainRate);
      MainRate.setOnClickListener(new View.OnClickListener() {
@@ -172,8 +177,10 @@ public class MainActivity extends AppCompatActivity {
      check.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-
              Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_SHORT).show();
+             firstNum.setText("");
+             secNum.setText("");
+             answer.setText("");
          }
      });
 

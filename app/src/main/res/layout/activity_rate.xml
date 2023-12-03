@@ -14,14 +14,23 @@
     android:gravity="center"
     android:layout_marginTop="300dp"
     />
-<SeekBar
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:max="10"
-    android:progress="5"
-    android:min="0"
-    android:id="@+id/skBar"
-    />
+
+    <TextView
+        android:id="@+id/showRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="35dp"
+        android:text="Rate"
+        android:textSize="25sp" />
+
+    <SeekBar
+        android:id="@+id/skBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:min="0"
+        android:progress="5" />
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
