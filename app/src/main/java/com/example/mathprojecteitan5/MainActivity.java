@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView equals;
     private EditText answer;
     private Button save;
-    private Button saveUsers;
+    private Button showUsers;
     private Button check;
     private TextView userAnswer;
     public MainViewModel viewModelMain;
@@ -165,13 +166,19 @@ public class MainActivity extends AppCompatActivity {
     });
 
 
-     saveUsers=findViewById(R.id.showUsers);
-     saveUsers.setOnClickListener(new View.OnClickListener() {
+     showUsers=findViewById(R.id.showUsers);
+     showUsers.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
+             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
+             trans.add(R.id.frameLayout, new Fragment_ShowUser());
+
+             trans.commit();
          }
      });
+
+
 
      check=findViewById(R.id.check);
      check.setOnClickListener(new View.OnClickListener() {

@@ -41,6 +41,14 @@ public class MainViewModel extends ViewModel {
        }
             return tmpAns;
      }
+
+     public String getName(){
+        return userV.getName();
+     }
+
+     public int getScore(){
+        return userV.getScore();
+     }
 public void setUSerName (String username){
         userV.setName(username);
 }
