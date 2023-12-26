@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:text="add picture"
             android:layout_gravity="center"
+            android:id="@+id/addPicture"
             android:layout_marginTop="150dp"
             android:backgroundTint="@color/liteblue"
 
@@ -61,6 +62,7 @@
             android:layout_marginTop="15dp"
             android:src="@drawable/userpicture"
             android:layout_gravity="center"
+            android:id="@+id/showPic"
 />
         <Button
             android:layout_width="wrap_content"
