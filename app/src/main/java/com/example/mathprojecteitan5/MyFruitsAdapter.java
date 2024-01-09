@@ -13,57 +13,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyViewHolder> {
-  public interface OnItemClickListener{
-      void onItemClick(Fruit item);
+    public interface OnItemClickListener {
+        void onItemClick(Fruit item);
 
-  }
-private ArrayList<Fruit> fruits;
-  private OnItemClickListener listener;
+    }
+
+    private ArrayList<Fruit> fruits;
+    private OnItemClickListener listener;
 
 
-  public MyFruitsAdapter(ArrayList<Fruit> fruits, OnItemClickListener listener){
-      this.fruits=fruits;
-      this.listener=listener;
-  }
+    public MyFruitsAdapter(ArrayList<Fruit> fruits, OnItemClickListener listener) {
+        this.fruits = fruits;
+        this.listener = listener;
+    }
 
-  @NonNull
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType){
-View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view,parent,false);
-return new MyViewHolder(view);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+        return new MyViewHolder(view);
 
-  }
+    }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        holder.bind(fruits.get(position), listener);
     }
 
+
+    //@Override
+   // public void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull List<Object> payloads) {
+      //  super.onBindViewHolder(holder, position, payloads);
+
+    //}
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
+    public int getItemCount() {
+
+        return fruits.size();
     }
 
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView tvFruitName;
+        ImageView ivFruitImage;
 
-@Override
-    public int getItemCount(){
-      return fruits.size();
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvFruitName = itemView.findViewById(R.id.tvFruitName);
+            ivFruitImage = itemView.findViewById(R.id.ivFruitImg);
+        }
+
+
+    public void bind(final Fruit item, final OnItemClickListener
+            listener) {
+
+        tvFruitName.setText(item.getName());
+        ivFruitImage.setImageResource(item.getDrawable());
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(item);
+            }
+        });
+    }
+
 }
-
-public static class MyViewHolder extends RecyclerView.ViewHolder{
-      TextView tvFruitName;
-      ImageView ivFruitImage;
-
-      public MyViewHolder (@NonNull View itemView){
-          super(itemView);
-          tvFruitName=itemView.findViewById(R.id.tvFruitName);
-          ivFruitImage=itemView.findViewById(R.id.ivFruitImg);
-      }
-}
-
-
-
 
 
 
