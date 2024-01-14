@@ -53,5 +53,9 @@ public void setUSerName (String username){
         userV.setName(username);
 }
 
+public void setRate(int rate){
+        userV.setRate(rate);
+}
+
 
 }

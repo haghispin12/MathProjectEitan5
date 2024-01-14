@@ -85,121 +85,118 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void intView(){
+    private void intView() {
 
 
-        firstNum=findViewById(R.id.firstNum);
+        firstNum = findViewById(R.id.firstNum);
 
 
-        secNum=findViewById(R.id.secNum);
+        secNum = findViewById(R.id.secNum);
 
 
-        multiply=findViewById(R.id.multiply1);
-        equals=findViewById(R.id.equals);
+        multiply = findViewById(R.id.multiply1);
+        equals = findViewById(R.id.equals);
 
-        answer=findViewById(R.id.answer);
+        answer = findViewById(R.id.answer);
 
-     bMltb=findViewById(R.id.bMltb);
-     bMltb.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             answer.setText("");
-            viewModelMain.mullBrd();
-
-
-         }
-     });
+        bMltb = findViewById(R.id.bMltb);
+        bMltb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                answer.setText("");
+                viewModelMain.mullBrd();
 
 
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result){
-                    int myRate=result.getData().getIntExtra("rate",-1);
-                    if(myRate>4)
-                    Toast.makeText(MainActivity.this, "thank you for rating "+myRate+"!", Toast.LENGTH_LONG).show();
-                    else if(myRate<5)
-                        Toast.makeText(MainActivity.this, "please tell us more why you rated "+myRate+", ty!", Toast.LENGTH_LONG).show();
-
-                }
             }
-
-    );
-     MainRate=findViewById(R.id.MainRate);
-     MainRate.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             Intent intent=new Intent(MainActivity.this, Rate.class);
-              activityResultLauncher.launch(intent);
-         }
-     });
+        });
 
 
-     challenge=findViewById(R.id.challenge);
-     challenge.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             answer.setText("");
-             viewModelMain.challenge();
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        int myRate = result.getData().getIntExtra("rate", -1);
+                        if (myRate > 4)
+                            Toast.makeText(MainActivity.this, "thank you for rating " + myRate + "!", Toast.LENGTH_LONG).show();
+                        else if (myRate < 5)
+                            Toast.makeText(MainActivity.this, "please tell us more why you rated " + myRate + ", ty!", Toast.LENGTH_LONG).show();
+                        viewModelMain.setRate(myRate);
 
-         }
-     });
-     xTill20=findViewById(R.id.xTill20);
-     xTill20.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             answer.setText("");
-             viewModelMain.x20();
-         }
-     });
+                    }
+                }
 
-
-
-
-     save=findViewById(R.id.save);
-    save.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-        }
-    });
+        );
+        MainRate = findViewById(R.id.MainRate);
+        MainRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Rate.class);
+                activityResultLauncher.launch(intent);
+            }
+        });
 
 
-     showUsers=findViewById(R.id.showUsers);
-     showUsers.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-           //FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+        challenge = findViewById(R.id.challenge);
+        challenge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                answer.setText("");
+                viewModelMain.challenge();
 
-             //trans.add(R.id.frameLayout, new Fragment_ShowUser());//
-
-            // trans.commit();
-             Intent intent=new Intent(MainActivity.this, ShowUsersActivity.class);
-             activityResultLauncher.launch(intent);
-
-
-         }
-     });
-
-
-
-     check=findViewById(R.id.check);
-     check.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_SHORT).show();
-             firstNum.setText("");
-             secNum.setText("");
-             answer.setText("");
-         }
-     });
+            }
+        });
+        xTill20 = findViewById(R.id.xTill20);
+        xTill20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                answer.setText("");
+                viewModelMain.x20();
+            }
+        });
 
 
+        save = findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
+
+
+        showUsers = findViewById(R.id.showUsers);
+        showUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+
+                //trans.add(R.id.frameLayout, new Fragment_ShowUser());//
+
+                // trans.commit();
+                Intent intent = new Intent(MainActivity.this, ShowUsersActivity.class);
+                activityResultLauncher.launch(intent);
+
+
+            }
+        });
+
+
+        check = findViewById(R.id.check);
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, viewModelMain.answer(answer), Toast.LENGTH_SHORT).show();
+                firstNum.setText("");
+                secNum.setText("");
+                answer.setText("");
+            }
+        });
 
 
     }
+
+
 
 
 
