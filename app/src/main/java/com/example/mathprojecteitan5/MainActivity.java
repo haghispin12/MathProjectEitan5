@@ -169,13 +169,14 @@ public class MainActivity extends AppCompatActivity {
         showUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+               FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
-                //trans.add(R.id.frameLayout, new Fragment_ShowUser());//
+                trans.add(R.id.frameLayout, new Fragment_ShowUser());
 
-                // trans.commit();
-                Intent intent = new Intent(MainActivity.this, ShowUsersActivity.class);
-                activityResultLauncher.launch(intent);
+                 trans.commit();
+
+               // Intent intent = new Intent(MainActivity.this, ShowUsersActivity.class);
+               // activityResultLauncher.launch(intent);
 
 
             }

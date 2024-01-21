@@ -45,6 +45,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database; // access to table
 
+
+
+
     public DBHelper(@Nullable Context context) {
         super(context, DATABASENAME, null, DATABASEVERSION);
     }
@@ -83,8 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
 
-        long id = database.insert(TABLE_RECORD, null, values);
-        //הוספתי את הסוגריים של אינט לפני האי די
+        long id = database.insert(TABLE_RECORD, null, values);//הוספתי את הסוגריים של אינט לפני האי די
         user.setId((int) id);
         database.close();
         return id;
@@ -182,9 +184,11 @@ public class DBHelper extends SQLiteOpenHelper {
 //    }
 
     public static byte[] getBytes(Context context, Uri uri) throws IOException {
-        Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),uri);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        if(uri!=null) {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        }
         return stream.toByteArray();
     }
 

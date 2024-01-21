@@ -1,5 +1,6 @@
 package com.example.mathprojecteitan5;
 
+import android.content.Context;
 import android.widget.EditText;
 
 import androidx.lifecycle.MutableLiveData;
@@ -11,7 +12,11 @@ public class MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum1= new MutableLiveData<>();
     MutableLiveData<Integer> vNum2= new MutableLiveData<>();
     MutableLiveData<Integer> vScore= new MutableLiveData<>();
+    DBHelper VDB;
     Exercise e2= new Exercise();
+
+
+
     public void mullBrd()
     {
         type=5;
@@ -40,6 +45,12 @@ public class MainViewModel extends ViewModel {
            vScore.setValue(userV.getScore());
        }
             return tmpAns;
+     }
+
+     public void VInsert (Context context){
+        VDB=new DBHelper(context);
+        VDB.insert(userV,context);
+
      }
 
      public String getName(){

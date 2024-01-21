@@ -3,6 +3,7 @@ package com.example.mathprojecteitan5;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class Fragment_ShowUser extends Fragment {
     private TextView scoreFrag;
     private Uri uri;
     private Button addPicture;
+    private Button addUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,9 +69,21 @@ public class Fragment_ShowUser extends Fragment {
 
                 startCamera.launch(cameraIntent);
 
+            }
+        });
+
+        addUser=v.findViewById(R.id.addUser);
+        addUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragViewModel.VInsert(requireContext());
 
             }
         });
+
+
+
+
 
         return v;
     }
