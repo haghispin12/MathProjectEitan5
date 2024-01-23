@@ -1,10 +1,15 @@
 package com.example.mathprojecteitan5;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.widget.EditText;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {
     private userName userV=new userName();
@@ -12,6 +17,7 @@ public class MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum1= new MutableLiveData<>();
     MutableLiveData<Integer> vNum2= new MutableLiveData<>();
     MutableLiveData<Integer> vScore= new MutableLiveData<>();
+    MutableLiveData<ArrayList> users=new MutableLiveData<>();
     DBHelper VDB;
     Exercise e2= new Exercise();
 
@@ -50,7 +56,8 @@ public class MainViewModel extends ViewModel {
      public void VInsert (Context context){
         VDB=new DBHelper(context);
         VDB.insert(userV,context);
-
+        ArrayList tmp =VDB.selectAll();
+        users.setValue(tmp);
      }
 
      public String getName(){
@@ -67,6 +74,19 @@ public void setUSerName (String username){
 public void setRate(int rate){
         userV.setRate(rate);
 }
+
+public void setUri(Uri uri){
+        userV.setUri(uri);
+}
+
+public Uri getUri(){return userV.getUri();}
+
+public Bitmap getBitMap(){
+        return userV.getBitmap();
+}
+
+
+
 
 
 }

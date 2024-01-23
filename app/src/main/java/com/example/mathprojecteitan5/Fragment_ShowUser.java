@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
@@ -24,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class Fragment_ShowUser extends Fragment {
 
@@ -78,16 +81,23 @@ public class Fragment_ShowUser extends Fragment {
             public void onClick(View view) {
                 fragViewModel.VInsert(requireContext());
 
+
+            }
+        });
+        /// לבדוק למה יש לי בעיה עם ה this אולי לא שמתי במקום הנכון
+        fragViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        fragViewModel.users.observe(this, new Observer<ArrayList>() {
+            @Override
+            public void onChanged(ArrayList array) {
+
+
             }
         });
 
 
 
-
-
         return v;
     }
-
 
 
 
@@ -98,6 +108,7 @@ public class Fragment_ShowUser extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
                         showPic.setImageURI(uri);
+                            fragViewModel.setUri(uri);
                     }
                 }
             });

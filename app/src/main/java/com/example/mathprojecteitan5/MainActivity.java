@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 score.setText("score: "+num2);
             }
         });
+
+        //האזנה למערך
+
+
+
+
 
         userAnswer=findViewById(R.id.userAnswer);
         String user1=getIntent().getStringExtra("username");

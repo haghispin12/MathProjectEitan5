@@ -1,5 +1,6 @@
 package com.example.mathprojecteitan5;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class userName {
@@ -7,7 +8,20 @@ public class userName {
  private int score;
  private int rate;
  private Uri uri;
- private int id;
+ private long id;
+ private Bitmap bitmap;
+
+
+ public userName(long id, String name,int rate,Bitmap bitmap, int score) {
+  this.name = name;
+  this.score=score;
+  this.rate=rate;
+  this.id=id;
+  this.bitmap=bitmap;
+ }
+
+ public userName() {
+ }
 
  public String getName() {
   return name;
@@ -41,7 +55,7 @@ public class userName {
   this.uri = uri;
  }
 
- public int getId() {
+ public long getId() {
   return id;
  }
 
@@ -49,4 +63,15 @@ public class userName {
   this.id = id;
  }
 
+ public Bitmap getBitmap() {
+  return bitmap;
+ }
+
+ public void setBitmap(Bitmap bitmap) {
+  this.bitmap = bitmap;
+ }
+
+ public void setScore(int score) {
+  this.score = score;
+ }
 }
