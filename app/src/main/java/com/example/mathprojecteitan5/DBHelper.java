@@ -80,8 +80,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // stored as Binary Large OBject ->  BLOB
             try {
-                values.put(COLUMN_PICTURE, getBytes(context,user.getUri()));
-        } catch (IOException e) {
+                if(user.getUri()==null)
+                values.put(COLUMN_PICTURE, getBytes(context,null));
+                else
+                    values.put(COLUMN_PICTURE, getBytes(context,user.getUri()));
+
+            } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -93,19 +97,19 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 //    // remove a specific user from the table
-//    public void deleteUser(userName user)
-//    {
-//
-//    }
-//
-//    public void deleteById(long id )
-//    {
-//        database = getWritableDatabase(); // get access to write e data
-//        database.delete(TABLE_RECORD, COLUMN_ID + " = " + id, null);
-//        database.close(); // close the database
-//    }
-//
-//    // update a specific user
+    public void deleteUser(userName user)
+    {
+
+    }
+
+   public void deleteById(long id )
+    {
+       database = getWritableDatabase(); // get access to write e data
+        database.delete(TABLE_RECORD, COLUMN_ID + " = " + id, null);
+       database.close(); // close the database
+   }
+
+   // update a specific user
 //    public void update(userName user)
 //    {
 //        database = getWritableDatabase();

@@ -21,6 +21,7 @@ public class userName {
  }
 
  public userName() {
+
  }
 
  public String getName() {
@@ -59,7 +60,7 @@ public class userName {
   return id;
  }
 
- public void setId(int id) {
+ public void setId(long id) {
   this.id = id;
  }
 

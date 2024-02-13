@@ -12,12 +12,12 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {
-    private userName userV=new userName();
+    userName userV=new userName();
     int type;
     MutableLiveData<Integer> vNum1= new MutableLiveData<>();
     MutableLiveData<Integer> vNum2= new MutableLiveData<>();
     MutableLiveData<Integer> vScore= new MutableLiveData<>();
-    MutableLiveData<ArrayList> users=new MutableLiveData<>();
+    MutableLiveData<ArrayList<userName>> users=new MutableLiveData<>();
     DBHelper VDB;
     Exercise e2= new Exercise();
 
@@ -55,9 +55,8 @@ public class MainViewModel extends ViewModel {
 
      public void VInsert (Context context){
         VDB=new DBHelper(context);
-        VDB.insert(userV,context);
-        ArrayList tmp =VDB.selectAll();
-        users.setValue(tmp);
+        userV.setId( VDB.insert(userV,context));
+        selectAll(context);
      }
 
      public String getName(){
@@ -85,6 +84,12 @@ public Bitmap getBitMap(){
         return userV.getBitmap();
 }
 
+public void selectAll (Context context)
+{
+    VDB = new DBHelper(context);
+    ArrayList<userName> users = VDB.selectAll();
+    this.users.setValue(users);
+}
 
 
 

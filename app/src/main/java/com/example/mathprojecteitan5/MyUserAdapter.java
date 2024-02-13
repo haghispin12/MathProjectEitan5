@@ -1,5 +1,6 @@
 package com.example.mathprojecteitan5;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyViewHolder> {
+public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHolder> {
     public interface OnItemClickListener {
-        void onItemClick(Fruit item);
+        void onItemClick(userName item);
 
     }
 
-    private ArrayList<Fruit> fruits;
+    private ArrayList<userName> users;
     private OnItemClickListener listener;
 
 
-    public MyFruitsAdapter(ArrayList<Fruit> fruits, OnItemClickListener listener) {
-        this.fruits = fruits;
+    public MyUserAdapter(ArrayList<userName> users, OnItemClickListener listener) {
+        this.users = users;
         this.listener = listener;
     }
 
@@ -37,7 +37,7 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind(fruits.get(position), listener);
+        holder.bind(users.get(position), listener);
     }
 
 
@@ -49,26 +49,37 @@ public class MyFruitsAdapter extends RecyclerView.Adapter<MyFruitsAdapter.MyView
 
     @Override
     public int getItemCount() {
-
-        return fruits.size();
+        return users.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvFruitName;
-        ImageView ivFruitImage;
+        TextView tvUserName;
+        ImageView ivUserImage;
+        TextView tvRate;
+        TextView tvScore;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvFruitName = itemView.findViewById(R.id.tvFruitName);
-            ivFruitImage = itemView.findViewById(R.id.ivFruitImg);
+            tvUserName = itemView.findViewById(R.id.tvUserName);
+            ivUserImage = itemView.findViewById(R.id.ivUserImg);
+            tvRate=itemView.findViewById(R.id.tvRate);
+            tvScore=itemView.findViewById(R.id.tvScore);
         }
 
 
-    public void bind(final Fruit item, final OnItemClickListener
+    public void bind(final userName item, final OnItemClickListener
             listener) {
 
-        tvFruitName.setText(item.getName());
-        ivFruitImage.setImageResource(item.getDrawable());
+        tvUserName.setText(item.getName()+"");
+        Bitmap bitmap=(item.getBitmap());
+        if(bitmap==null){
+            ivUserImage.setImageResource(R.drawable.userpic);
+        }
+        else
+            ivUserImage.setImageBitmap(bitmap);
+
+        tvScore.setText(item.getScore()+"");
+        tvRate.setText(item.getRate()+"");
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

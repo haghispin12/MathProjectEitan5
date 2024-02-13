@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
        score=findViewById(R.id.score);
         viewModelMain = new ViewModelProvider(this).get(MainViewModel.class);
+        userAnswer=findViewById(R.id.userAnswer);
+        String user1=getIntent().getStringExtra("username");
+        Toast.makeText(MainActivity.this, "Welcome "+user1, Toast.LENGTH_LONG).show();
+        userAnswer.setText(user1+",  ");
+        viewModelMain.setUSerName(user1);
         viewModelMain.vNum1.observe(this, new Observer<Integer>() {
             @Override
 
@@ -67,16 +72,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //האזנה למערך
-
-
-
-
-
-        userAnswer=findViewById(R.id.userAnswer);
-        String user1=getIntent().getStringExtra("username");
-        Toast.makeText(MainActivity.this, "Welcome "+user1, Toast.LENGTH_LONG).show();
-        userAnswer.setText(user1+",  ");
-        viewModelMain.setUSerName(user1);
 
 
         viewModelMain.vNum2.observe(this, new Observer<Integer>() {
