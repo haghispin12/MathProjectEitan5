@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +52,8 @@ public class Fragment_ShowUser extends Fragment {
     private MyUserAdapter FragMyUserAdapter;
     private MenuItem itemDelete;
     private MenuItem itemEdit;
+    private EditText editUser;
+    private userName tempUser;
 
 
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
@@ -82,12 +86,24 @@ public class Fragment_ShowUser extends Fragment {
             case R.id.action_delete:
                 return true;
             case R.id.action_edit:
+                addUser.setText("Update");
+                username.setVisibility(View.GONE);
+                editUser.setVisibility(View.VISIBLE);
+
                 return true;
         }
 
         return false;
     }
-/////////////////////////////////////////////////////
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    /////////////////////////////////////////////////////
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,8 +118,10 @@ public class Fragment_ShowUser extends Fragment {
         username.setText(fragViewModel.getName() + "");
         scoreFrag.setText(fragViewModel.getScore() + "");
         showPic=v.findViewById(R.id.showPic);
-
         addPicture=v.findViewById(R.id.addPicture);
+
+        editUser=v.findViewById(R.id.editUser);////////////הרגע הוספתי
+
         addPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +158,8 @@ public class Fragment_ShowUser extends Fragment {
             @Override
             public void onClick(View view) {
                 fragViewModel.VInsert(requireContext());
-
+                //להוסיף פעולת update דרך DbHELPER
+                //עשיתי כבר משתנה שישמר ברגע שלוחצים על משתנה כלשהו
 
             }
         });
@@ -153,7 +172,10 @@ public class Fragment_ShowUser extends Fragment {
     public void createUADP(ArrayList<userName> users){
         FragMyUserAdapter=new MyUserAdapter(users, new MyUserAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(userName item) {
+            public void onItemClick(userName item) { /////////////////////////////
+                itemDelete.setVisible(true);
+                itemEdit.setVisible(true);
+                tempUser=item;
               //להוסיף edit
                 //להוסיף delete
 
