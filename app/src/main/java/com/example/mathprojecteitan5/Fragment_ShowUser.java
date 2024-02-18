@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,6 +48,8 @@ public class Fragment_ShowUser extends Fragment {
     private Button addUser;
     private RecyclerView recyclerView;
     private MyUserAdapter FragMyUserAdapter;
+    private MenuItem itemDelete;
+    private MenuItem itemEdit;
 
 
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
@@ -57,9 +63,31 @@ public class Fragment_ShowUser extends Fragment {
                     }
                 }
             });
+///////////////////////////////////////
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu,menu);
+        itemDelete=menu.findItem(R.id.action_delete);
+        itemDelete.setVisible(false);
+        itemEdit=menu.findItem(R.id.action_edit);
+        itemEdit.setVisible(false);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        switch (id){
+            case R.id.action_delete:
+                return true;
+            case R.id.action_edit:
+                return true;
+        }
 
+        return false;
+    }
+/////////////////////////////////////////////////////
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
