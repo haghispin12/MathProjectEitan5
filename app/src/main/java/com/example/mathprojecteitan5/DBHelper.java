@@ -112,14 +112,14 @@ public class DBHelper extends SQLiteOpenHelper {
    // update a specific user
     public void update(userName user)
     {
-        database = getWritableDatabase();
+               database = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, user.getId());
         values.put(COLUMN_NAME, user.getName());
         values.put(COLUMN_RATE, user.getRate());
         // stored as Binary Large OBject ->  BLOB
         values.put(COLUMN_PICTURE, getBytes(user.getBitmap()));
-       database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
+        database.update(TABLE_RECORD, values, COLUMN_ID + "=" + user.getId(), null);
         database.close();
 
    }

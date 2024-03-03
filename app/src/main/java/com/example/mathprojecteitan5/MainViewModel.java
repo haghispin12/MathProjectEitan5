@@ -18,7 +18,7 @@ public class MainViewModel extends ViewModel {
     MutableLiveData<Integer> vNum2= new MutableLiveData<>();
     MutableLiveData<Integer> vScore= new MutableLiveData<>();
     MutableLiveData<ArrayList<userName>> users=new MutableLiveData<>();
-    DBHelper VDB;
+    //DBHelper VDB;
     Exercise e2= new Exercise();
 
 
@@ -54,8 +54,21 @@ public class MainViewModel extends ViewModel {
      }
 
      public void VInsert (Context context){
-        VDB=new DBHelper(context);
+        DBHelper VDB=new DBHelper(context);
         userV.setId( VDB.insert(userV,context));
+        selectAll(context);
+     }
+
+     public void VUpdate(userName tempUser, Context context){
+        DBHelper VDB=new DBHelper(context);
+        VDB.update(tempUser);
+        selectAll(context);
+
+     }
+
+     public void VDelete(userName tempUser, Context context){
+        DBHelper VDB=new DBHelper(context);
+        VDB.deleteById(tempUser.getId());
         selectAll(context);
      }
 
@@ -86,7 +99,7 @@ public Bitmap getBitMap(){
 
 public void selectAll (Context context)
 {
-    VDB = new DBHelper(context);
+   DBHelper VDB = new DBHelper(context);
     ArrayList<userName> users = VDB.selectAll();
     this.users.setValue(users);
 }

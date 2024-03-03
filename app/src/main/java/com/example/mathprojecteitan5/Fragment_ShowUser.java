@@ -54,6 +54,7 @@ public class Fragment_ShowUser extends Fragment {
     private MenuItem itemEdit;
     private EditText editUser;
     private userName tempUser;
+    int flag=0;
 
 
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
@@ -84,8 +85,10 @@ public class Fragment_ShowUser extends Fragment {
         int id=item.getItemId();
         switch (id){
             case R.id.action_delete:
+                fragViewModel.VDelete(tempUser,requireActivity());
                 return true;
             case R.id.action_edit:
+                flag=1;
                 addUser.setText("Update");
                 username.setVisibility(View.GONE);
                 editUser.setVisibility(View.VISIBLE);
@@ -153,18 +156,30 @@ public class Fragment_ShowUser extends Fragment {
             }
         });
         fragViewModel.selectAll(requireActivity());
-
+///////////////////////////
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(flag==0)
                 fragViewModel.VInsert(requireContext());
+                if(flag==1)
+                {
+                    tempUser.setName(editUser.getText().toString());
+                    fragViewModel.VUpdate(tempUser, requireActivity());
+                    flag = 0;
+                    addUser.setText("Add User");
+                    username.setText(tempUser.getName().toString());
+                    username.setVisibility(View.VISIBLE);
+                    editUser.setVisibility(View.GONE);
+
+                }
                 //להוסיף פעולת update דרך DbHELPER
                 //עשיתי כבר משתנה שישמר ברגע שלוחצים על משתנה כלשהו
 
             }
         });
 
-
+/////////////////////////
 
         return v;
     }
@@ -176,6 +191,9 @@ public class Fragment_ShowUser extends Fragment {
                 itemDelete.setVisible(true);
                 itemEdit.setVisible(true);
                 tempUser=item;
+                username.setText(tempUser.getName()+"");
+                scoreFrag.setText(tempUser.getScore()+"");
+                showPic.setImageBitmap(tempUser.getBitmap());
               //להוסיף edit
                 //להוסיף delete
 
