@@ -1,4 +1,4 @@
-package com.example.mathprojecteitan5;
+package com.example.mathprojecteitan5.mathproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.example.mathprojecteitan5.R;
 
 public class Rate extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 private SeekBar sb;

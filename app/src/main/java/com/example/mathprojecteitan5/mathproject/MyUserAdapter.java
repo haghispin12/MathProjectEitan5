@@ -1,4 +1,4 @@
-package com.example.mathprojecteitan5;
+package com.example.mathprojecteitan5.mathproject;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mathprojecteitan5.R;
 
 import java.util.ArrayList;
 

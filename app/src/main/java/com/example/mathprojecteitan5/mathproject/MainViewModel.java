@@ -1,4 +1,4 @@
-package com.example.mathprojecteitan5;
+package com.example.mathprojecteitan5.mathproject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,7 +8,6 @@ import android.widget.EditText;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainViewModel extends ViewModel {

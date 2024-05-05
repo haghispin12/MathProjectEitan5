@@ -1,4 +1,4 @@
-package com.example.mathprojecteitan5;
+package com.example.mathprojecteitan5.mathproject;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,12 +12,8 @@ import android.provider.MediaStore;
 
 import androidx.annotation.Nullable;
 
-import com.example.mathprojecteitan5.userName;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {

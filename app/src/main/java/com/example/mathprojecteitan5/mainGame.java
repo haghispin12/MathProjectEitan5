@@ -24,5 +24,9 @@ public class mainGame extends AppCompatActivity {
         // create a object of myBaseAdapter
         MyBaseAdapter baseAdapter = new MyBaseAdapter(this, itemsarray);
         gridView.setAdapter(baseAdapter);
+
+        PersonColor hairColor;
+        hairColor=PersonColor.brown;
+
     }
 }

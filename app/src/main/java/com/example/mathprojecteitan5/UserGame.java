@@ -1,5 +1,7 @@
 package com.example.mathprojecteitan5;
 
+import com.example.mathprojecteitan5.mathproject.Picture;
+
 public class UserGame {
     private String name;
     private int id;

@@ -27,14 +27,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Rate"
+            android:name=".mathproject.Rate"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".login"
+            android:name=".mathproject.login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".mathproject.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
