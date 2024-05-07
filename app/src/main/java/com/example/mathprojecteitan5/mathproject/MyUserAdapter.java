@@ -16,16 +16,15 @@ import java.util.ArrayList;
 
 public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHolder> {
     public interface OnItemClickListener {
-        void onItemClick(userName item);
+        void onItemClick(Character item);
 
     }
-
-    private ArrayList<userName> users;
+    private ArrayList<Character> characters;
     private OnItemClickListener listener;
 
 
-    public MyUserAdapter(ArrayList<userName> users, OnItemClickListener listener) {
-        this.users = users;
+    public MyUserAdapter(ArrayList<Character> characters, OnItemClickListener listener) {
+        this.characters = characters;
         this.listener = listener;
     }
 
@@ -39,7 +38,7 @@ public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bind(users.get(position), listener);
+        holder.bind(characters.get(position), listener);
     }
 
 
@@ -51,37 +50,27 @@ public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return characters.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUserName;
         ImageView ivUserImage;
-        TextView tvRate;
-        TextView tvScore;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvUserName = itemView.findViewById(R.id.tvUserName);
             ivUserImage = itemView.findViewById(R.id.ivUserImg);
-            tvRate=itemView.findViewById(R.id.tvRate);
-            tvScore=itemView.findViewById(R.id.tvScore);
+
         }
 
 
-    public void bind(final userName item, final OnItemClickListener
+    public void bind(final Character item, final OnItemClickListener
             listener) {
-
-        tvUserName.setText(item.getName()+"");
-        Bitmap bitmap=(item.getBitmap());
+        int pictutre=(item.getBitmap());
         if(bitmap==null){
             ivUserImage.setImageResource(R.drawable.userpic);
         }
         else
             ivUserImage.setImageBitmap(bitmap);
-
-        tvScore.setText(item.getScore()+"");
-        tvRate.setText(item.getRate()+"");
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

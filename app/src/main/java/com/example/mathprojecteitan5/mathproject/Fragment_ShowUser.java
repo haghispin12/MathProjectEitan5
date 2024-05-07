@@ -176,34 +176,34 @@ public class Fragment_ShowUser extends Fragment {
 
             }
         });
-
-/////////////////////////
-
-        return v;
-    }
-
-    public void createUADP(ArrayList<userName> users){
-        FragMyUserAdapter=new MyUserAdapter(users, new MyUserAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(userName item) { /////////////////////////////
-                itemDelete.setVisible(true);
-                itemEdit.setVisible(true);
-                tempUser=item;
-                username.setText(tempUser.getName()+"");
-                scoreFrag.setText(tempUser.getScore()+"");
-                showPic.setImageBitmap(tempUser.getBitmap());
-              //להוסיף edit
-                //להוסיף delete
-
-
-            }
-
-        });
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-        recyclerView.setAdapter(FragMyUserAdapter);
-        recyclerView.setHasFixedSize(true);
-    }
-
-
-
-}
+//
+///////////////////////////
+//
+//        return v;
+//    }
+//
+//    public void createUADP(ArrayList<userName> users){
+//        FragMyUserAdapter=new MyUserAdapter(users, new MyUserAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(userName item) { /////////////////////////////
+//                itemDelete.setVisible(true);
+//                itemEdit.setVisible(true);
+//                tempUser=item;
+//                username.setText(tempUser.getName()+"");
+//                scoreFrag.setText(tempUser.getScore()+"");
+//                showPic.setImageBitmap(tempUser.getBitmap());
+//              //להוסיף edit
+//                //להוסיף delete
+//
+//
+//            }
+//
+//        });
+//        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+//        recyclerView.setAdapter(FragMyUserAdapter);
+//        recyclerView.setHasFixedSize(true);
+//    }
+//
+//
+//
+//}
