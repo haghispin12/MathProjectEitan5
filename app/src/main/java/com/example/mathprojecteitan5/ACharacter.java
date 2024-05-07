@@ -1,8 +1,6 @@
 package com.example.mathprojecteitan5;
 
-import com.example.mathprojecteitan5.PersonColor;
-
-public class Character {
+public class ACharacter {
  String Name;
  PersonColor HairColor;
  PersonColor SkinColor;
@@ -16,7 +14,7 @@ public class Character {
  boolean LongHair;
  int picture;
 
- public Character(String Name,boolean isMale,PersonColor HairColor,PersonColor SkinColor,PersonColor EyeColor,boolean BigNose,boolean WearingHat,boolean HasGlasses,boolean HasBeard,boolean HasMoustache, boolean longHair,int picture){
+ public ACharacter(String Name, boolean isMale, PersonColor HairColor, PersonColor SkinColor, PersonColor EyeColor, boolean BigNose, boolean WearingHat, boolean HasGlasses, boolean HasBeard, boolean HasMoustache, boolean longHair, int picture){
   this.Name=Name;
   this.HairColor=HairColor;
   this.SkinColor=SkinColor;

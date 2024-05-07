@@ -10,20 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mathprojecteitan5.ACharacter;
 import com.example.mathprojecteitan5.R;
 
 import java.util.ArrayList;
 
 public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHolder> {
+
     public interface OnItemClickListener {
-        void onItemClick(Character item);
+        void onItemClick(ACharacter item);
 
     }
-    private ArrayList<Character> characters;
+    private ArrayList<ACharacter> characters;
     private OnItemClickListener listener;
 
 
-    public MyUserAdapter(ArrayList<Character> characters, OnItemClickListener listener) {
+    public MyUserAdapter(ArrayList<ACharacter> characters, OnItemClickListener listener) {
         this.characters = characters;
         this.listener = listener;
     }
@@ -54,23 +56,20 @@ public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHold
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivUserImage;
+//        ImageView ivUserImage;
+        ImageView characterPic;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivUserImage = itemView.findViewById(R.id.ivUserImg);
+            characterPic=itemView.findViewById((R.id.characterPic));
+//            ivUserImage = itemView.findViewById(R.id.ivUserImg);
 
         }
 
 
-    public void bind(final Character item, final OnItemClickListener
-            listener) {
-        int pictutre=(item.getBitmap());
-        if(bitmap==null){
-            ivUserImage.setImageResource(R.drawable.userpic);
-        }
-        else
-            ivUserImage.setImageBitmap(bitmap);
+    public void bind(final ACharacter item, final OnItemClickListener listener) {
+            characterPic.setImageResource(item.getPicture());
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
