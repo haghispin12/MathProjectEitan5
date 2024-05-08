@@ -1,4 +1,4 @@
-package com.example.mathprojecteitan5.mathproject;
+package com.example.mathprojecteitan5;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import com.example.mathprojecteitan5.R;
 
 import java.util.ArrayList;
 
-public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHolder> {
+public class MyGameAdapter extends RecyclerView.Adapter<MyGameAdapter.MyViewHolder> {
 
     public interface OnItemClickListener {
         void onItemClick(ACharacter item);
@@ -25,7 +25,7 @@ public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHold
     private OnItemClickListener listener;
 
 
-    public MyUserAdapter(ArrayList<ACharacter> characters, OnItemClickListener listener) {
+    public MyGameAdapter(ArrayList<ACharacter> characters, OnItemClickListener listener) {
         this.characters = characters;
         this.listener = listener;
     }
@@ -45,8 +45,8 @@ public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHold
 
 
     //@Override
-   // public void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull List<Object> payloads) {
-      //  super.onBindViewHolder(holder, position, payloads);
+    // public void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull List<Object> payloads) {
+    //  super.onBindViewHolder(holder, position, payloads);
 
     //}
 
@@ -56,29 +56,28 @@ public class MyUserAdapter extends RecyclerView.Adapter<MyUserAdapter.MyViewHold
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-//        ImageView ivUserImage;
+        //        ImageView ivUserImage;
         ImageView characterPic;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            characterPic=itemView.findViewById((R.id.character_pic));
-//            ivUserImage = itemView.findViewById(R.id.ivUserImg);
+            characterPic=(ImageView) itemView.findViewById((R.id.character_pic));
+//
 
         }
 
 
-    public void bind(final ACharacter item, final OnItemClickListener listener) {
+        public void bind(final ACharacter item, final OnItemClickListener listener) {
             characterPic.setImageResource(item.getPicture());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
+        }
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(item);
-            }
-        });
     }
-
-}
 
 
 

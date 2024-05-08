@@ -114,14 +114,14 @@ public class Fragment_ShowUser extends Fragment {
         v = inflater.inflate(R.layout.fragment__show_user, container, false);
         username = v.findViewById(R.id.fragUserName);
         scoreFrag = v.findViewById(R.id.scoreFrag);
-        recyclerView=v.findViewById(R.id.rcShowUsers);
+        recyclerView = v.findViewById(R.id.rcShowUsers);
         fragViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
         username.setText(fragViewModel.getName() + "");
         scoreFrag.setText(fragViewModel.getScore() + "");
-        showPic=v.findViewById(R.id.showPic);
-        addPicture=v.findViewById(R.id.addPicture);
+        showPic = v.findViewById(R.id.showPic);
+        addPicture = v.findViewById(R.id.addPicture);
 
-        editUser=v.findViewById(R.id.editUser);////////////הרגע הוספתי
+        editUser = v.findViewById(R.id.editUser);////////////הרגע הוספתי
 
         addPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,14 +143,15 @@ public class Fragment_ShowUser extends Fragment {
             }
         });
 
-        addUser=v.findViewById(R.id.addUser);
+        addUser = v.findViewById(R.id.addUser);
 
         /// לבדוק למה יש לי בעיה עם ה this אולי לא שמתי במקום הנכון
         fragViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
         fragViewModel.users.observe(requireActivity(), new Observer<ArrayList<userName>>() {
             @Override
-            public void onChanged(ArrayList<userName>array) {
-            createUADP(array);
+            public void onChanged(ArrayList<userName> array) {
+
+                //createUADP(array);
             }
         });
         fragViewModel.selectAll(requireActivity());
@@ -158,10 +159,9 @@ public class Fragment_ShowUser extends Fragment {
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(flag==0)
-                fragViewModel.VInsert(requireContext());
-                if(flag==1)
-                {
+                if (flag == 0)
+                    fragViewModel.VInsert(requireContext());
+                if (flag == 1) {
                     tempUser.setName(editUser.getText().toString());
                     fragViewModel.VUpdate(tempUser, requireActivity());
                     flag = 0;
@@ -176,34 +176,37 @@ public class Fragment_ShowUser extends Fragment {
 
             }
         });
+        return v;
+    }
 //
 ///////////////////////////
 //
 //        return v;
 //    }
 //
-//    public void createUADP(ArrayList<userName> users){
-//        FragMyUserAdapter=new MyUserAdapter(users, new MyUserAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(userName item) { /////////////////////////////
-//                itemDelete.setVisible(true);
-//                itemEdit.setVisible(true);
-//                tempUser=item;
-//                username.setText(tempUser.getName()+"");
-//                scoreFrag.setText(tempUser.getScore()+"");
-//                showPic.setImageBitmap(tempUser.getBitmap());
-//              //להוסיף edit
-//                //להוסיף delete
+//        public void createUADP (ArrayList < userName > users) {
+//            FragMyUserAdapter = new MyUserAdapter(users, new MyUserAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(userName item) { /////////////////////////////
+//                    itemDelete.setVisible(true);
+//                    itemEdit.setVisible(true);
+//                    tempUser = item;
+//                    username.setText(tempUser.getName() + "");
+//                    scoreFrag.setText(tempUser.getScore() + "");
+//                    showPic.setImageBitmap(tempUser.getBitmap());
+//                    //להוסיף edit
+//                    //להוסיף delete
 //
 //
-//            }
+//                }
 //
-//        });
-//        recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-//        recyclerView.setAdapter(FragMyUserAdapter);
-//        recyclerView.setHasFixedSize(true);
+//            });
+//            recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+//            recyclerView.setAdapter(FragMyUserAdapter);
+//            recyclerView.setHasFixedSize(true);
+//        }
 //    }
 //
 //
 //
-//}
+}
