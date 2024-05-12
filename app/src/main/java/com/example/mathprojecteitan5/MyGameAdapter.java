@@ -33,7 +33,7 @@ public class MyGameAdapter extends RecyclerView.Adapter<MyGameAdapter.MyViewHold
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_character, parent, false);
         return new MyViewHolder(view);
 
     }
@@ -43,12 +43,12 @@ public class MyGameAdapter extends RecyclerView.Adapter<MyGameAdapter.MyViewHold
         holder.bind(characters.get(position), listener);
     }
 
-
-    //@Override
-    // public void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull List<Object> payloads) {
-    //  super.onBindViewHolder(holder, position, payloads);
-
-    //}
+//
+//    @Override
+//     public void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull List<Object> payloads) {
+//    super.onBindViewHolder(holder, position, payloads);
+//
+//    }
 
     @Override
     public int getItemCount() {
@@ -61,7 +61,7 @@ public class MyGameAdapter extends RecyclerView.Adapter<MyGameAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            characterPic=(ImageView) itemView.findViewById((R.id.character_pic));
+            characterPic=itemView.findViewById((R.id.character_pic));
 //
 
         }
