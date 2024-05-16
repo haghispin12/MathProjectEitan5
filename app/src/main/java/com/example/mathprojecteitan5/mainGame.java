@@ -1,6 +1,7 @@
 package com.example.mathprojecteitan5;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -113,6 +114,10 @@ public class mainGame extends AppCompatActivity {
 // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                if(pos==1){
@@ -120,7 +125,15 @@ public class mainGame extends AppCompatActivity {
                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
                    else
                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
-                   gameViewModel.flipBlondes();
+                   final Handler handler = new Handler();
+                   handler.postDelayed(new Runnable() {
+                       @Override
+                       public void run() {
+                           gameViewModel.flipBlondes();
+                       }
+                   },2000);
+
+
 
                }
                 if(pos==2){
