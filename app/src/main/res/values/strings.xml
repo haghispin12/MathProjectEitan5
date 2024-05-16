@@ -2,4 +2,30 @@
     <string name="app_name">MathProjectEitan5</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="questions_array">
+        <item>Ask question</item>
+        <item>has yellow hair?</item>
+        <item>has red hair?</item>
+        <item>has brown hair?</item>
+        <item>has blue eyes?</item>
+        <item>has green eyes?</item>
+        <item>has brown eyes?</item>
+        <item>has white skin?</item>
+        <item>has black skin></item>
+        <item>has big nose?</item>
+        <item>has hat?</item>
+        <item>has glasses</item>
+        <item>has beard?</item>
+        <item>has moustache?</item>
+        <item>is he a male?</item>
+        <item>has long hair?</item>
+        <item>has short hair?</item>
+        <item>has bald head?</item>
+
+    </string-array>
+
+
+
+
 </resources>

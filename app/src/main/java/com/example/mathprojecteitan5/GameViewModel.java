@@ -48,7 +48,9 @@ public void setCharacters(){
     }
 
 
-//    public ACharacter getSecretChar(ACharacter chosen,ACharacter SecretChar){
+//   public ACharacter getSecretChar(ACharacter chosen){
+//        ACharacter SecretChar=new ACharacter();
+//        SecretChar.setName(chosen.);
 //     SecretChar.BigNose=chosen.BigNose;
 //
 //    }
