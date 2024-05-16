@@ -1,14 +1,17 @@
 package com.example.mathprojecteitan5;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mathprojecteitan5.mathproject.MyUserAdapter;
+import com.example.mathprojecteitan5.mathproject.userName;
 
 import java.util.ArrayList;
 
 public class GameViewModel extends ViewModel {
     private ArrayList<ACharacter> Characters;
+    MutableLiveData<ArrayList<ACharacter>> myCharacters=new MutableLiveData<>();
 
     public GameViewModel() {
         Characters = new ArrayList<ACharacter>();
@@ -36,6 +39,7 @@ public class GameViewModel extends ViewModel {
         Characters.add(new ACharacter("Lily", false, PersonColor.RED, PersonColor.WHITE, PersonColor.BROWN, true, false, true, false, false, false,R.drawable.olivia));
        Characters.add(new ACharacter("Mason", true, PersonColor.BROWN, PersonColor.WHITE, PersonColor.GREEN, true, true, false, false, false, true,R.drawable.olivia));
        Characters.add(new ACharacter("Ava", false, PersonColor.BROWN, PersonColor.WHITE, PersonColor.BLUE, true, true, false, false, false, false,R.drawable.olivia));
+      myCharacters.setValue(Characters);
    }
 public void setCharacters(){
     Characters.add(new ACharacter("Daniel", true, PersonColor.BALD, PersonColor.WHITE, PersonColor.BROWN, true, false, false, true, true, false, R.drawable.daniel));
@@ -47,7 +51,15 @@ public void setCharacters(){
         return Characters;
     }
 
+public void flipBlondes(){
+        for(int i=0;i<Characters.size();i++)
+    {
 
+       if (Characters.get(i).getHairColor()==PersonColor.YELLOW)
+           Characters.get(i).setPicture(R.drawable.backgroundblue);
+    }
+        myCharacters.setValue(Characters);
+}
 //   public ACharacter getSecretChar(ACharacter chosen){
 //        ACharacter SecretChar=new ACharacter();
 //        SecretChar.setName(chosen.);

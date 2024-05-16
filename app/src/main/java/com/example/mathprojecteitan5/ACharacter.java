@@ -1,18 +1,18 @@
 package com.example.mathprojecteitan5;
 
 public class ACharacter {
- String Name;
- PersonColor HairColor;
- PersonColor SkinColor;
- PersonColor EyeColor;
- boolean BigNose;
- boolean WearingHat;
- boolean HasGlasses;
- boolean HasBeard;
- boolean HasMoustache;
- boolean isMale;
- boolean LongHair;
- int picture;
+ private String Name;
+ private PersonColor HairColor;
+ private PersonColor SkinColor;
+ private PersonColor EyeColor;
+ private boolean BigNose;
+ private boolean WearingHat;
+ private boolean HasGlasses;
+ private boolean HasBeard;
+ private boolean HasMoustache;
+ private boolean isMale;
+ private boolean LongHair;
+ private int picture;
 
  public ACharacter(String Name, boolean isMale, PersonColor HairColor, PersonColor SkinColor, PersonColor EyeColor, boolean BigNose, boolean WearingHat, boolean HasGlasses, boolean HasBeard, boolean HasMoustache, boolean longHair, int picture){
   this.Name=Name;

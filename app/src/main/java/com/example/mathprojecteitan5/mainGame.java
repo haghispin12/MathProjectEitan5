@@ -12,12 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mathprojecteitan5.mathproject.MainViewModel;
 import com.example.mathprojecteitan5.mathproject.MyUserAdapter;
+import com.example.mathprojecteitan5.mathproject.userName;
+
+import java.util.ArrayList;
 
 public class mainGame extends AppCompatActivity {
 
@@ -67,7 +71,9 @@ public class mainGame extends AppCompatActivity {
                     selectedPic.setImageResource(secretCharacter.getPicture());
                     selectedPic.setVisibility(View.VISIBLE);
                     flagSelected=true;
-                    Toast.makeText(mainGame.this, "Selected character is "+item.Name ,Toast.LENGTH_SHORT).show();
+                    spinner.setVisibility(View.VISIBLE);
+                    Toast.makeText(mainGame.this, "Selected character is "+item.getName() ,Toast.LENGTH_SHORT).show();
+
 
                 }
             }
@@ -76,12 +82,25 @@ public class mainGame extends AppCompatActivity {
 
         });
 
-        questionButton.setOnClickListener(new View.OnClickListener() {
-             @Override
-            public void onClick(View view) {
 
-             }
-            });
+        //gameViewModel.myCharacters.observe(new );
+
+        gameViewModel.myCharacters.observe(this, new Observer<ArrayList<ACharacter>>() {
+                    @Override
+                    public void onChanged(ArrayList<ACharacter> aCharacters) {
+                        myGameAdapter.refreshArray(aCharacters);
+                        //
+                        myGameAdapter.notifyDataSetChanged();
+                    }
+                });
+
+
+                questionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
 
 // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -96,11 +115,116 @@ public class mainGame extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+               if(pos==1){
+                   if(secretCharacter.getHairColor()==PersonColor.YELLOW)
+                       Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                   else
+                       Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                   gameViewModel.flipBlondes();
 
+               }
+                if(pos==2){
+                    if(secretCharacter.getHairColor()==PersonColor.RED)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+
+                }
+                if(pos==3){
+                    if(secretCharacter.getHairColor()==PersonColor.BROWN)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==4){
+                    if(secretCharacter.getEyeColor()==PersonColor.BLUE)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==5){
+                    if(secretCharacter.getEyeColor()==PersonColor.GREEN)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==6){
+                    if(secretCharacter.getEyeColor()==PersonColor.BROWN)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==7){
+                    if(secretCharacter.getSkinColor()==PersonColor.WHITE)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==8){
+                    if(secretCharacter.getSkinColor()==PersonColor.BLACK)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==9){
+                    if(secretCharacter.isBigNose()==true)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==10){
+                    if(secretCharacter.isWearingHat()==true)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==11){
+                    if(secretCharacter.isHasGlasses()==true)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==12){
+                    if(secretCharacter.isHasBeard()==true)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==13){
+                    if(secretCharacter.isHasMoustache()==true)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==14){
+                    if(secretCharacter.isMale()==true)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==15){
+                    if(secretCharacter.isLongHair()==true)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==16){
+                    if(secretCharacter.isLongHair()==false)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
+                if(pos==17){
+                    if(secretCharacter.getHairColor()==PersonColor.BALD)
+                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
 
             }
         });

@@ -30,6 +30,10 @@ public class MyGameAdapter extends RecyclerView.Adapter<MyGameAdapter.MyViewHold
         this.listener = listener;
     }
 
+    public void refreshArray(ArrayList<ACharacter> newArray){
+        characters=newArray;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

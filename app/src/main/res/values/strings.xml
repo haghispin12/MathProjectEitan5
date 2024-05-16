@@ -2,9 +2,9 @@
     <string name="app_name">MathProjectEitan5</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="Ask_question">Ask question</string>
     <string-array name="questions_array">
-        <item>Ask question</item>
+        <item>Ask a question</item>
         <item>has yellow hair?</item>
         <item>has red hair?</item>
         <item>has brown hair?</item>
@@ -12,7 +12,7 @@
         <item>has green eyes?</item>
         <item>has brown eyes?</item>
         <item>has white skin?</item>
-        <item>has black skin></item>
+        <item>has black skin?</item>
         <item>has big nose?</item>
         <item>has hat?</item>
         <item>has glasses</item>

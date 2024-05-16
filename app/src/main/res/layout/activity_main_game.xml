@@ -64,10 +64,11 @@
            />
 
        <Spinner
-
+           android:prompt="@string/Ask_question"
            android:id="@+id/questions_spinner"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+           android:visibility="gone"
            />
 
 

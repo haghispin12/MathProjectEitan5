@@ -11,5 +11,6 @@ public enum PersonColor {
     BALD,
     LONGISH,
     SHORTISH,
+    blond_glasses
 
 }
