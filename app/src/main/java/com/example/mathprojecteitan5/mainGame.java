@@ -36,6 +36,7 @@ public class mainGame extends AppCompatActivity {
     ImageView selectedPic;
     Spinner spinner;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,16 +124,16 @@ public class mainGame extends AppCompatActivity {
                if(pos==1){
                    if(secretCharacter.getHairColor()==PersonColor.YELLOW)
                        Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
-                   else
-                       Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
-                   final Handler handler = new Handler();
-                   handler.postDelayed(new Runnable() {
-                       @Override
-                       public void run() {
-                           gameViewModel.flipBlondes();
-                       }
-                   },2000);
-
+                   else if(secretCharacter.getHairColor()!=PersonColor.YELLOW) {
+                       Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                       final Handler handler = new Handler();
+                       handler.postDelayed(new Runnable() {
+                           @Override
+                           public void run() {
+                               gameViewModel.flipBlondes();
+                           }
+                       }, 2000);
+                   }
 
 
                }

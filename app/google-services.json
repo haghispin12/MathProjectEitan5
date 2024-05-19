@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "778754427453",
+    "project_id": "guesswhogame-f4447",
+    "storage_bucket": "guesswhogame-f4447.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778754427453:android:c0c1617ca9808b9406b854",
+        "android_client_info": {
+          "package_name": "com.example.mathprojecteitan5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa5VP0c0G9FmNEgcHEe9R8mQ47eIxa1NQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

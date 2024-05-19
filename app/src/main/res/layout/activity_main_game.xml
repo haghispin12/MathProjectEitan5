@@ -36,8 +36,6 @@
         android:layout_gravity="center"
         android:background="@color/red"
         android:padding="3dp"
-
-
         />
    <LinearLayout
        android:padding="5dp"
