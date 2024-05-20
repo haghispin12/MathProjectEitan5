@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".mainGame">
+    tools:context=".mainGame"
+    android:backgroundTint="@color/ishPink">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="20dp"

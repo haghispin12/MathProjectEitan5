@@ -1,6 +1,8 @@
 package com.example.mathprojecteitan5;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,16 +20,19 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class GameLogin extends AppCompatActivity {
-private EditText GameUserName;
+private EditText GameEmail;
 private EditText GamePassword;
 private Button GameSubmit;
+private Button SignUpButton;
 private FirebaseAuth auth;
+String email;
+String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GameUserName=findViewById(R.id.GameUserName);
+        GameEmail=findViewById(R.id.GameEmail);
         GamePassword=findViewById(R.id.GamePassword);
         GameSubmit=findViewById(R.id.GameSubmit);
-
+        SignUpButton=findViewById(R.id.signUpButton);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game_login);
@@ -36,6 +41,13 @@ private FirebaseAuth auth;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
 
+        });
+
+        GameEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            email=GameEmail
+            }
         });
 
         auth= FirebaseAuth.getInstance();

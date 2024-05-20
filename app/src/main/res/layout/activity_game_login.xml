@@ -25,14 +25,14 @@
         >
 
         <EditText
-            android:id="@+id/GameUserName"
+            android:id="@+id/GameEmail"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="45dp"
             android:gravity="center"
-            android:hint="Enter user name"
+            android:hint="Enter Email"
             android:textSize="20sp" />
 
         <EditText
@@ -59,6 +59,18 @@
             android:text="submit"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="80dp"
+            android:layout_weight="33"
+            android:backgroundTint="@color/ishPink"
+            android:gravity="center"
+            android:text="Sign up"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
