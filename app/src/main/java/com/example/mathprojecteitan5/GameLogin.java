@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,50 +30,40 @@ String email;
 String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game_login);
+
         GameEmail=findViewById(R.id.GameEmail);
         GamePassword=findViewById(R.id.GamePassword);
         GameSubmit=findViewById(R.id.GameSubmit);
         SignUpButton=findViewById(R.id.signUpButton);
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_game_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        FirebaseApp.initializeApp(this);
 
-        });
-
-        GameEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            email=GameEmail
-            }
-        });
-
-        auth= FirebaseAuth.getInstance();
-        if(auth.getCurrentUser()!=null){
-
-        }
+       //auth = FirebaseAuth.getInstance();
+//        if(auth.getCurrentUser()!=null){/
+//        }
         //do something
 
 
-
-
-
-
-        auth.signInWithEmailAndPassword(email,password) .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        GameSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(GameLogin.this,"Authentication success.",Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(GameEmail.getText().toString(),GamePassword.getText().toString()).addOnCompleteListener(GameLogin.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(GameLogin.this,"Authentication success.",Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Toast.makeText(GameLogin.this,"Authentication failed.",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(GameLogin.this,"Authentication failed.",Toast.LENGTH_SHORT).show();
 
-                }
+                        }
+                    }
+                });
+
             }
         });
+
 
 
 
