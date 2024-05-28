@@ -1,10 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp">
+    android:orientation="vertical"
+    tools:context=".GameLogin">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:text="Welcome!"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:orientation="vertical"
+        tools:context=".GameLogin"
+        >
+
+        <EditText
+            android:id="@+id/SigninEmail"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="45dp"
+            android:gravity="center"
+            android:hint="Enter Email"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/SigninPassword"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="45dp"
+            android:gravity="center"
+            android:hint="Enter Password"
+            android:textSize="20sp" />
+
+
+        <Button
+            android:id="@+id/SignUPSignUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_weight="33"
+            android:backgroundTint="@color/ishPink"
+            android:gravity="center"
+            android:text="Sign up"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
