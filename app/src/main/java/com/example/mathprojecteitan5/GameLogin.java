@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.mathprojecteitan5.mathproject.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -53,7 +54,8 @@ String password;
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(GameLogin.this,"Authentication success.",Toast.LENGTH_SHORT).show();
-
+                            Intent intent=new Intent(GameLogin.this, mainGame.class) ;
+                            startActivity(intent);
                         } else {
                             Toast.makeText(GameLogin.this,"Authentication failed.",Toast.LENGTH_SHORT).show();
 
