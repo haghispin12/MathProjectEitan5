@@ -13,6 +13,7 @@ public class ACharacter {
  private boolean isMale;
  private boolean LongHair;
  private int picture;
+ private boolean isDown;
 
  public ACharacter(String Name, boolean isMale, PersonColor HairColor, PersonColor SkinColor, PersonColor EyeColor, boolean BigNose, boolean WearingHat, boolean HasGlasses, boolean HasBeard, boolean HasMoustache, boolean longHair, int picture){
   this.Name=Name;
@@ -27,6 +28,7 @@ public class ACharacter {
   this.isMale=isMale;
   this.LongHair=longHair;
   this.picture=picture;
+  this.isDown=false;
  }
 
  public ACharacter(){
@@ -42,6 +44,16 @@ public class ACharacter {
   this.isMale=true;
   this.LongHair=true;
   this.picture=R.drawable.userpic;
+  this.isDown=false;
+ }
+
+
+ public boolean isDown() {
+  return isDown;
+ }
+
+ public void setDown(boolean down) {
+  isDown = down;
  }
 
  public int getPicture() {
