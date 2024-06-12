@@ -8,7 +8,7 @@ public class UserGame {
     private int score;
     private String question;
     private boolean answer;
-    private Picture selectedPic;
+    private ACharacter selectedPic;
     private int currentDown;
     private int currentUp;
 

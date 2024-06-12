@@ -6,11 +6,11 @@ public class GameManager {
     private GameViewModel managerVM;
     private UserGame user1;
     private UserGame user2;
-    private Picture[] pictures;
+    private ACharacter[] characters;
 
 
 
-    m
+
 
 
 

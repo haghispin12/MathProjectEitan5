@@ -51,6 +51,7 @@ public void setCharacters(){
         return Characters;
     }
 
+
 public void flipBlondes(){
         for(int i=0;i<Characters.size();i++)
     {
@@ -60,6 +61,16 @@ public void flipBlondes(){
     }
         myCharacters.setValue(Characters);
 }
+
+    public void flipBrownHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getHairColor()==PersonColor.BROWN)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
 //   public ACharacter getSecretChar(ACharacter chosen){
 //        ACharacter SecretChar=new ACharacter();
 //        SecretChar.setName(chosen.);

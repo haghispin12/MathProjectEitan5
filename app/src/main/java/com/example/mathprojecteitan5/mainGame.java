@@ -147,9 +147,21 @@ public class mainGame extends AppCompatActivity {
                 if(pos==3){
                     if(secretCharacter.getHairColor()==PersonColor.BROWN)
                         Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(mainGame.this, "No" ,Toast.LENGTH_SHORT).show();
+                    else if(secretCharacter.getHairColor()!=PersonColor.BROWN) {
+                        Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                gameViewModel.flipBrownHair();
+                            }
+                        }, 2000);
+                    }
+
+
                 }
+
+
                 if(pos==4){
                     if(secretCharacter.getEyeColor()==PersonColor.BLUE)
                         Toast.makeText(mainGame.this, "YES" ,Toast.LENGTH_SHORT).show();
