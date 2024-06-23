@@ -43,13 +43,49 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="play with friends"
+            android:text="create a game with friends"
             android:layout_gravity="center"
             android:backgroundTint="@color/teal_200"
             android:id="@+id/friendsGame"
 
             />
-</LinearLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="join game"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/gray"
+            android:id="@+id/joinGame"
+
+            />
+
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter Game Id"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/gray"
+            android:id="@+id/enterID"
+            android:visibility="invisible"
+            />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/gray"
+            android:id="@+id/SubmitJoin"
+            android:visibility="invisible"
+
+
+            />
+    </LinearLayout>
 
 
 

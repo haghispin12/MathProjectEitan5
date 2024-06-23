@@ -26,6 +26,7 @@ public class SignUp extends AppCompatActivity {
     private EditText SignEmail;
     private EditText SignPassword;
     private Button SignUpSignUpButton;
+    UserGame userGame2=new UserGame();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,8 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(SignUp.this,"Registration success.",Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(SignUp.this, mainGame.class);
+                            userGame2.setName(SignEmail.getText().toString());
+                            Intent intent=new Intent(SignUp.this, HomeActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(SignUp.this,"Registration failed.",Toast.LENGTH_SHORT).show();

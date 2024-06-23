@@ -28,8 +28,7 @@ private EditText GamePassword;
 private Button GameSubmit;
 private Button SignUpButton;
 private FirebaseAuth auth;
-String email;
-String password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +39,7 @@ String password;
         GameSubmit=findViewById(R.id.GameSubmit);
         SignUpButton=findViewById(R.id.signUpButton);
         //FirebaseApp.initializeApp(this);
+
 
 //        auth = FirebaseAuth.getInstance();
 //        if(auth.getCurrentUser()!=null){/
@@ -54,7 +54,7 @@ String password;
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(GameLogin.this,"Authentication success.",Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(GameLogin.this, mainGame.class) ;
+                            Intent intent=new Intent(GameLogin.this, HomeActivity.class) ;
                             startActivity(intent);
                         } else {
                             Toast.makeText(GameLogin.this,"Authentication failed.",Toast.LENGTH_SHORT).show();

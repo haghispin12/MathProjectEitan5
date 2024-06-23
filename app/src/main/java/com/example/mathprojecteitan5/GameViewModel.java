@@ -1,5 +1,6 @@
 package com.example.mathprojecteitan5;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mathprojecteitan5.mathproject.MyUserAdapter;
 import com.example.mathprojecteitan5.mathproject.userName;
 
+import java.io.Closeable;
 import java.util.ArrayList;
 
 public class GameViewModel extends ViewModel {
     private ArrayList<ACharacter> Characters;
     MutableLiveData<ArrayList<ACharacter>> myCharacters=new MutableLiveData<>();
+    UserGame userGame;
 
     public GameViewModel() {
         Characters = new ArrayList<ACharacter>();
@@ -40,12 +43,11 @@ public class GameViewModel extends ViewModel {
        Characters.add(new ACharacter("Mason", true, PersonColor.BROWN, PersonColor.WHITE, PersonColor.GREEN, true, false, false, false, false, false,R.drawable.mason));
        Characters.add(new ACharacter("Eden", false, PersonColor.BROWN, PersonColor.WHITE, PersonColor.BLUE, true, true, false, false, false, false,R.drawable.eden));
       myCharacters.setValue(Characters);
-   }
-public void setCharacters(){
-    Characters.add(new ACharacter("Daniel", true, PersonColor.BALD, PersonColor.WHITE, PersonColor.BROWN, true, false, false, true, true, false, R.drawable.daniel));
-    Characters.add(new ACharacter("Alex", true, PersonColor.BROWN, PersonColor.WHITE, PersonColor.GREEN, true, false, true, true, false, true, R.drawable.alex));
-    Characters.add(new ACharacter("Emily", false, PersonColor.RED, PersonColor.WHITE, PersonColor.BLUE, false, true, true, false, false, false, R.drawable.emily));
-}
+        this.userGame =new UserGame();
+
+    }
+
+
 
     public ArrayList<ACharacter> getCharacters() {
         return Characters;
@@ -79,4 +81,11 @@ public void flipBlondes(){
 //    }
 
 
+    public UserGame getUserGame() {
+        return userGame;
+    }
+
+    public void setUserGame(UserGame userGame) {
+        this.userGame = userGame;
+    }
 }
