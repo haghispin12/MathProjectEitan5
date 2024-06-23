@@ -1,12 +1,14 @@
 package com.example.mathprojecteitan5;
 
-import com.example.mathprojecteitan5.mathproject.Picture;
+import androidx.annotation.Keep;
 
+import com.example.mathprojecteitan5.mathproject.Picture;
+@Keep
 public class GameManager {
-    private String GameId;
-    private String user1;
-    private String user2;
-    private boolean GameStatus;
+     public String GameId;
+      public String user1;
+     public String user2;
+     public boolean GameStatus;
 
 
     public GameManager(String gameId, String user1) {
