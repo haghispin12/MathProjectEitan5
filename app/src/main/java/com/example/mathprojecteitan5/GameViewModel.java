@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mathprojecteitan5.mathproject.MyUserAdapter;
 import com.example.mathprojecteitan5.mathproject.userName;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Closeable;
 import java.util.ArrayList;
@@ -15,6 +18,10 @@ public class GameViewModel extends ViewModel {
     private ArrayList<ACharacter> Characters;
     MutableLiveData<ArrayList<ACharacter>> myCharacters=new MutableLiveData<>();
     UserGame userGame;
+    FirebaseFirestore db=FirebaseFirestore.getInstance();
+    FirebaseAuth auth=FirebaseAuth.getInstance();
+    String documentPath="";
+    DocumentReference docRef=db.collection("Games").document();
 
     public GameViewModel() {
         Characters = new ArrayList<ACharacter>();
@@ -46,6 +53,7 @@ public class GameViewModel extends ViewModel {
         this.userGame =new UserGame();
 
     }
+
 
 
 

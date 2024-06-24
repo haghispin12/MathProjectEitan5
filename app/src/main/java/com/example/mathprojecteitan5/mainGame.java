@@ -6,21 +6,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mathprojecteitan5.mathproject.MainViewModel;
-import com.example.mathprojecteitan5.mathproject.MyUserAdapter;
-import com.example.mathprojecteitan5.mathproject.userName;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,8 @@ public class mainGame extends AppCompatActivity {
     boolean flagSelected=false;
     ImageView selectedPic;
     Spinner spinner;
+    FirebaseAuth auth;
+    TextView turn;
 
 
     @Override
@@ -48,20 +51,23 @@ public class mainGame extends AppCompatActivity {
         choseButton=findViewById(R.id.choseButton);
         selectedPic=findViewById(R.id.selectedPic);
         spinner =(Spinner) findViewById(R.id.questions_spinner);
+        auth=FirebaseAuth.getInstance();
+        turn=findViewById(R.id.turn);
 
-        // public void initCardsAdapter() {
-        /*MyUserAdapter myUserAdapter = new MyUserAdapter(gameViewModel.Characters, new MyUserAdapter.OnItemClickListener()) {
+
+        Request request1= new Request("id",auth.getCurrentUser().getEmail());
+        FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onItemClick(ACharacter item) {
-                Toast.makeText(mainGame.this, item.Name ,Toast.LENGTH_SHORT).show();
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(mainGame.this,"added user",Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mainGame.this,"failed",Toast.LENGTH_SHORT).show();
             }
         });
-
-        rcShowFruits.setLayoutManager(new LinearLayoutManager(this));
-        rcShowFruits.setAdapter(myUsersAdapter);
-        rcShowFruits.setHasFixedSize(true);*/
-
-       // }
 
         myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
             @Override
@@ -75,12 +81,10 @@ public class mainGame extends AppCompatActivity {
                     flagSelected=true;
                     spinner.setVisibility(View.VISIBLE);
                     Toast.makeText(mainGame.this, "Selected character is "+item.getName() ,Toast.LENGTH_SHORT).show();
-
+                    turn.setVisibility(View.VISIBLE);
 
                 }
             }
-
-
 
         });
 
@@ -97,12 +101,9 @@ public class mainGame extends AppCompatActivity {
                 });
 
 
-                questionButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                    }
-                });
+
+
 
 // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -114,11 +115,9 @@ public class mainGame extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
-
-
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                if(pos==1){

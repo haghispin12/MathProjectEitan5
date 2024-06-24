@@ -9,6 +9,9 @@ public class GameManager {
       public String user1;
      public String user2;
      public boolean GameStatus;
+     public int currentTurn;
+
+
 
 
     public GameManager(String gameId, String user1) {
@@ -16,6 +19,7 @@ public class GameManager {
         this.user1 = user1;
         this.user2 = "";
         GameStatus = false;
+        currentTurn=1;
     }
 
 
