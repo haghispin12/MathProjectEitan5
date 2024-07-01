@@ -92,7 +92,9 @@ private String GameId;
                               if(value!=null&&value.exists()){
                                   if(value.getBoolean("GameStatus")){
                                       Intent intent=new Intent(HomeActivity.this, mainGame.class);
-
+                                        intent.putExtra("turn","1");
+                                        intent.putExtra("player","1");
+                                        intent.putExtra("GameId",GameId);
                                       startActivity(intent);
                                   }
                               }
@@ -136,7 +138,7 @@ private String GameId;
                         gameId=dc.getId();
                          Map<String, Object> updates=new HashMap<>();
                          updates.put("user2",auth.getCurrentUser().getEmail());
-                         updates.put("currentTurn",1);
+                         updates.put("currentTurn","1");
                          updates.put("GameStatus",true);
 
                          FirebaseFirestore.getInstance().collection("Games").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -157,6 +159,11 @@ private String GameId;
                      }
 
                         Intent intent=new Intent(HomeActivity.this, mainGame.class) ;
+                        intent.putExtra("turn","2");
+                        intent.putExtra("player","2");
+                        intent.putExtra("GameId",GameId);
+
+
                         startActivity(intent);
                     }
 

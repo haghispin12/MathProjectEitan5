@@ -19,7 +19,18 @@
     android:id="@+id/turn"
     android:visibility="invisible"
     />
-
+    <TextView
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="other player's turn"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:background="@color/red"
+        android:id="@+id/noTurn"
+        android:visibility="gone"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="20dp"
         android:id="@+id/rcShowCharacters"

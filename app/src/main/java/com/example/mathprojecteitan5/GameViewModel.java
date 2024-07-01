@@ -57,6 +57,14 @@ public class GameViewModel extends ViewModel {
 
 
 
+
+    public ACharacter getSecretChar (String name){
+        for(int i=0;i<Characters.size();i++){
+            if(Characters.get(i).getName().equals(name))
+                return Characters.get(i);
+        }
+        return Characters.get(1);
+    }
     public ArrayList<ACharacter> getCharacters() {
         return Characters;
     }
