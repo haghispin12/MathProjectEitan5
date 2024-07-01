@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,8 +21,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
@@ -54,6 +59,10 @@ private String GameId;
         SubmitJoin=findViewById(R.id.SubmitJoin);
         auth=FirebaseAuth.getInstance();
         showCode=findViewById(R.id.showCode);
+        CollectionReference collectionRef=FirebaseFirestore.getInstance().collection("games");
+        DocumentReference documentRef=collectionRef.document("GameStatus");
+
+
       startOnline.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -73,6 +82,22 @@ private String GameId;
                       showCode.setVisibility(View.VISIBLE);
                       showCode.setText("your code is: "+GameId);
 
+                      documentRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                          @Override
+                          public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                              if(error!=null){
+                                  Log.w("FireStore","fail",error);
+                                  return;
+                              }
+                              if(value!=null&&value.exists()){
+                                  if(value.getBoolean("GameStatus")){
+                                      Intent intent=new Intent(HomeActivity.this, mainGame.class);
+
+                                      startActivity(intent);
+                                  }
+                              }
+                          }
+                      });
 
                   }
 
@@ -83,7 +108,13 @@ private String GameId;
                   }
               });
           }
+
       });
+
+
+
+
+
 
       JoinGame.setOnClickListener(new View.OnClickListener() {
           @Override
