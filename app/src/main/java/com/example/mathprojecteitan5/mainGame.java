@@ -475,16 +475,50 @@ public class mainGame extends AppCompatActivity {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
                         }
                         if (pos == 14) {
-                            if (secretCharacter.isMale() == true)
+                            if (secretCharacter.isMale() == true) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptMale();
+                                    }
+                                }, 2000);
+                            }
+
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipMale();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 15) {
-                            if (secretCharacter.isLongHair() == true)
+                            if (secretCharacter.isLongHair() == true) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptLongHair();
+                                    }
+                                }, 2000);
+                            }
+
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipLongHair();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 16) {
                             if (secretCharacter.isLongHair() == false)

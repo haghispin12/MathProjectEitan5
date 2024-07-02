@@ -50,6 +50,7 @@
         android:visibility="visible"
         />
 
+>
     <ImageView
         android:layout_marginTop="3dp"
         android:layout_width="90dp"
@@ -61,7 +62,10 @@
         android:background="@color/red"
         android:padding="3dp"
         />
-   <LinearLayout
+
+</>
+
+<LinearLayout
        android:padding="5dp"
        android:layout_marginTop="10dp"
        android:layout_width="match_parent"

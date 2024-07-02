@@ -245,6 +245,43 @@ public void flipBlondes(){
         }
         myCharacters.setValue(Characters);
     }
+
+    public void flipMale(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).isMale()==true)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipExceptMale(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).isMale()==false)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipLongHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).isLongHair()==true)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipExceptLongHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).isLongHair()==false)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
     public UserGame getUserGame() {
         return userGame;
     }
