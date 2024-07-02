@@ -8,7 +8,7 @@ public class GameManager {
      public String GameId;
       public String user1;
      public String user2;
-     public boolean GameStatus;
+     public int GameStatus;
      public String currentTurn;
 
 
@@ -18,7 +18,7 @@ public class GameManager {
         GameId = gameId;
         this.user1 = user1;
         this.user2 = "";
-        GameStatus = false;
+        GameStatus = 0;
         currentTurn="1";
     }
 
