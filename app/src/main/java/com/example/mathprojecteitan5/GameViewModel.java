@@ -32,6 +32,7 @@ public class GameViewModel extends ViewModel {
     String documentPath="";
     String gameCode;
     String gameDocId;
+    MutableLiveData<Boolean> flagChanged;
     CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Games");
     DocumentReference docRef=db.collection("Games").document();
 
@@ -63,6 +64,7 @@ public class GameViewModel extends ViewModel {
        Characters.add(new ACharacter("Eden", false, PersonColor.BROWN, PersonColor.WHITE, PersonColor.BLUE, true, true, false, false, false, false,R.drawable.eden));
       myCharacters.setValue(Characters);
         this.userGame =new UserGame();
+        flagChanged=new MutableLiveData<>();
 
     }
 
@@ -119,6 +121,7 @@ public class GameViewModel extends ViewModel {
 
 
     public void finishMyTurn(){
+
         collectionRef.whereEqualTo("GameId",gameCode).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -135,6 +138,10 @@ public class GameViewModel extends ViewModel {
                 }
             }
         });
+        if(flagChanged.getValue()==true)
+            flagChanged.setValue(false);
+        else
+            flagChanged.setValue(true);
     }
 
     interface Callback<T> {

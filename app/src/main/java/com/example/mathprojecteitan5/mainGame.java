@@ -50,7 +50,7 @@ public class mainGame extends AppCompatActivity {
     Spinner spinner;
     FirebaseAuth auth;
     TextView turn;
-    String pTurn;
+    int pTurn;
     String player;
     String GameId;
     String secretChar1;
@@ -72,7 +72,7 @@ public class mainGame extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.questions_spinner);
         auth = FirebaseAuth.getInstance();
         turn = findViewById(R.id.turn);
-        pTurn = intent.getStringExtra("turn");
+        pTurn=intent.getIntExtra("turn",0);
         player = intent.getStringExtra("player");
         GameId = intent.getStringExtra("GameId");
         String gameDocId = getIntent().getStringExtra("gameDocId");
@@ -97,19 +97,24 @@ public class mainGame extends AppCompatActivity {
             }
         });
 
-        gameViewModel.isPlayerTurn( pTurn, new GameViewModel.Callback<Boolean>() {
-            @Override
-            public void onResult(Boolean isTurn) {
-                if (isTurn) {
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    init();
-                } else {
-                    init();
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
-            }
-        });
+        doTurn();/////////קורא לפעולה שבודקת של מי התור ומאפשרת לשחק- פעולה חשובה!
+
+//            gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
+//                @Override
+//                public void onResult(Boolean isTurn) {
+//                    if (isTurn) {
+//                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                        init();
+//                    } else {
+//                        init();
+//                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    }
+//                }
+//            });
+
+
+
     }
 
 
@@ -143,7 +148,12 @@ public class mainGame extends AppCompatActivity {
 
         });
 
-
+        gameViewModel.flagChanged.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                doTurn();
+            }
+        });
         gameViewModel.myCharacters.observe(this, new Observer<ArrayList<ACharacter>>() {
                     @Override
                     public void onChanged(ArrayList<ACharacter> aCharacters) {
@@ -152,7 +162,7 @@ public class mainGame extends AppCompatActivity {
                         myGameAdapter.notifyDataSetChanged();
                     }
                 });
-
+            CollectionReference collectionRefGame = FirebaseFirestore.getInstance().collection("Games");
         collectionRefGame.whereEqualTo("GameId",GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -226,6 +236,7 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
 
                         }
                         if (pos == 2) {
@@ -249,6 +260,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 3) {
                             if (secretCharacter.getHairColor() == PersonColor.BROWN) {
@@ -273,6 +286,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
 
                         if (pos == 4) {
@@ -297,6 +312,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 5) {
                             if (secretCharacter.getEyeColor() == PersonColor.GREEN) {
@@ -320,6 +337,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 6) {
                             if (secretCharacter.getEyeColor() == PersonColor.BROWN) {
@@ -342,6 +361,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 7) {
                             if (secretCharacter.getSkinColor() == PersonColor.WHITE) {
@@ -364,6 +385,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 8) {
                             if (secretCharacter.getSkinColor() == PersonColor.BLACK) {
@@ -386,18 +409,24 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 9) {
                             if (secretCharacter.isBigNose() == true)
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
                             else
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 10) {
                             if (secretCharacter.isWearingHat() == true)
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
                             else
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 11) {
                             if (secretCharacter.isHasGlasses() == true) {
@@ -420,18 +449,24 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 12) {
                             if (secretCharacter.isHasBeard() == true)
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
                             else
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 13) {
                             if (secretCharacter.isHasMoustache() == true)
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
                             else
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 14) {
                             if (secretCharacter.isMale() == true) {
@@ -455,6 +490,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 15) {
                             if (secretCharacter.isLongHair() == true) {
@@ -478,6 +515,8 @@ public class mainGame extends AppCompatActivity {
                                     }
                                 }, 2000);
                             }
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 16) {
                             if (secretCharacter.isLongHair() == false)
@@ -491,7 +530,9 @@ public class mainGame extends AppCompatActivity {
                             else
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
                         }
-                    }
+                gameViewModel.finishMyTurn();
+
+            }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
@@ -554,6 +595,23 @@ public class mainGame extends AppCompatActivity {
                 });
     }
 
+    public void doTurn(){
+
+        gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
+            @Override
+            public void onResult(Boolean isTurn) {
+                if (isTurn) {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    init();
+                } else {
+                    init();
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }
+        });
+
+    }
 
     private void fetchCurrentTurn() {
         CollectionReference collectionRefGame = FirebaseFirestore.getInstance().collection("Games");
