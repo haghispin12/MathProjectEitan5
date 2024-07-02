@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity {
                             gameId = dc.getId();
                             Map<String, Object> updates = new HashMap<>();
                             updates.put("user2", auth.getCurrentUser().getEmail());
-                            updates.put("currentTurn", "1");
+                            updates.put("currentTurn", 1);
                             updates.put("GameStatus", 1);
 
                             FirebaseFirestore.getInstance().collection("Games").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {

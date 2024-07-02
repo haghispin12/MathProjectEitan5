@@ -65,6 +65,7 @@ public class GameViewModel extends ViewModel {
       myCharacters.setValue(Characters);
         this.userGame =new UserGame();
         flagChanged=new MutableLiveData<>();
+        flagChanged.setValue(false);
 
     }
 

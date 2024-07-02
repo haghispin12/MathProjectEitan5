@@ -9,7 +9,7 @@ public class GameManager {
       public String user1;
      public String user2;
      public int GameStatus;
-     public String currentTurn;
+     public int currentTurn;
 
 
 
@@ -19,7 +19,7 @@ public class GameManager {
         this.user1 = user1;
         this.user2 = "";
         GameStatus = 0;
-        currentTurn="1";
+        currentTurn=1;
     }
 
 
