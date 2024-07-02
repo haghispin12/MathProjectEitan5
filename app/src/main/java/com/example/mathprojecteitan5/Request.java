@@ -17,8 +17,8 @@ public class Request {
     this.sender = sender;
     this.answer = 0;
     this.currentUp = 24;
-    this.characterP1="";
-    this.characterP2="";
+    this.characterP1="Alex";
+    this.characterP2="Mia";
   }
 
 

@@ -102,6 +102,7 @@ public class mainGame extends AppCompatActivity {
                     selectedPic.setVisibility(View.VISIBLE);
                     flagSelected=true;
 
+
                     if(player.equals("1")){
                         FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
@@ -111,8 +112,8 @@ public class mainGame extends AppCompatActivity {
                                     gameId=dc.getId();
                                     Map<String, Object> updates=new HashMap<>();
 
-                                    updates.put("characterP2",item.getName());
-                                    FirebaseFirestore.getInstance().collection("Games").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    updates.put("character1",item.getName());
+                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
                                         }
@@ -136,8 +137,8 @@ public class mainGame extends AppCompatActivity {
                                     gameId=dc.getId();
                                     Map<String, Object> updates=new HashMap<>();
 
-                                    updates.put("characterP2",item.getName());
-                                    FirebaseFirestore.getInstance().collection("Games").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    updates.put("character2",item.getName());
+                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
                                         }
@@ -151,6 +152,19 @@ public class mainGame extends AppCompatActivity {
                         });
                     }
 
+                    collectionRefRequest.whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (DocumentSnapshot dc : queryDocumentSnapshots) {
+                                Map<String, Object> updates = new HashMap<>();
+                                secretChar1 = dc.getString("character1");
+                                secretChar2 = dc.getString("character2");
+
+                            }
+                        }
+                    });
+
+
                     spinner.setVisibility(View.VISIBLE);
                     Toast.makeText(mainGame.this, "Selected character is "+item.getName() ,Toast.LENGTH_SHORT).show();
                     turn.setVisibility(View.VISIBLE);
@@ -159,7 +173,7 @@ public class mainGame extends AppCompatActivity {
             }
 
         });
-
+///////////////////////////////////////////////////////////////////כל מה שבתוך הסוגריים למעלה קורה רק כאשר לוחצים על דמות///////////////////////////////
 
         //gameViewModel.myCharacters.observe(new );
 
@@ -172,10 +186,22 @@ public class mainGame extends AppCompatActivity {
                     }
                 });
 
+        collectionRefGame.whereEqualTo("GameId",GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot dc : queryDocumentSnapshots) {
+                    Map<String, Object> updates = new HashMap<>();
+                    currentTurn = dc.getString("currentTurn");
+
+                }
+            }
+        });
 
 
+////////////////////////////////////////////////////////////////שמתי את זה פה במקום בonclick
 
 
+//////////////////////////////////////שמתי את זה פה במקום בonlclick/////////////
 
 // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -184,11 +210,11 @@ public class mainGame extends AppCompatActivity {
                 android.R.layout.simple_spinner_item
         );
 // Specify the layout to use when the list of choices appears.
+
+
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
-
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
@@ -216,28 +242,7 @@ public class mainGame extends AppCompatActivity {
 //                        });
 //                    }
 //                    });
-                collectionRefRequest.whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot dc : queryDocumentSnapshots) {
-                            Map<String, Object> updates = new HashMap<>();
-                            secretChar1 = dc.getString("characterP1");
-                            secretChar2 = dc.getString(("characterP2"));
 
-                        }
-                    }
-                    });
-
-                collectionRefGame.whereEqualTo("GameId",GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot dc : queryDocumentSnapshots) {
-                            Map<String, Object> updates = new HashMap<>();
-                            currentTurn = dc.getString("currentTurn");
-
-                        }
-                    }
-                });
 
                         ////////////////////////////////////////////////////////////////////
                     ////הסבר למה שקורה פה: אם התור הוא של משתמש 2 אז הדמות הסודית היא הדמות של משתמש 1 והפוך. למעלה דליתי את המידע בפעולות מהפייר סטור. אני משתמש בפעולה שלוקחת את השם של הדמות הסודית ובכך היא מוצאת את הדמות במערך ומציבה אותה במשתנה secret character
