@@ -80,6 +80,16 @@ public void flipBlondes(){
         myCharacters.setValue(Characters);
 }
 
+    public void flipExceptBlondes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getHairColor()!=PersonColor.YELLOW)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
     public void flipBrownHair(){
         for(int i=0;i<Characters.size();i++)
         {
@@ -89,14 +99,152 @@ public void flipBlondes(){
         }
         myCharacters.setValue(Characters);
     }
-//   public ACharacter getSecretChar(ACharacter chosen){
-//        ACharacter SecretChar=new ACharacter();
-//        SecretChar.setName(chosen.);
-//     SecretChar.BigNose=chosen.BigNose;
-//
-//    }
+
+    public void flipExceptBrownHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getHairColor()!=PersonColor.BROWN)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipWhiteHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getHairColor()==PersonColor.WHITE)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipExceptWhiteHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getHairColor()!=PersonColor.WHITE)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipRedHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getHairColor()==PersonColor.RED)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipExceptRedHair(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getHairColor()!=PersonColor.RED)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipBlueEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getEyeColor()==PersonColor.BLUE)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipExceptBlueEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getEyeColor()!=PersonColor.BLUE)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipGreenEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getEyeColor()==PersonColor.GREEN)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipExceptGreenEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getEyeColor()!=PersonColor.GREEN)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
 
 
+    public void flipBrownEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getEyeColor()==PersonColor.BROWN)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipExceptBrownEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getEyeColor()!=PersonColor.BROWN)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipBlackSkinEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getSkinColor()==PersonColor.BLACK)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipWhiteSkinEyes(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).getSkinColor()==PersonColor.WHITE)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+
+    public void flipGlasses(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).isHasGlasses()==true)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
+    public void flipExceptGlasses(){
+        for(int i=0;i<Characters.size();i++)
+        {
+
+            if (Characters.get(i).isHasGlasses()==false)
+                Characters.get(i).setPicture(R.drawable.backgroundblue);
+        }
+        myCharacters.setValue(Characters);
+    }
     public UserGame getUserGame() {
         return userGame;
     }

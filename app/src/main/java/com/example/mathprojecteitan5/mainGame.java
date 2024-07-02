@@ -102,67 +102,75 @@ public class mainGame extends AppCompatActivity {
                     selectedPic.setVisibility(View.VISIBLE);
                     flagSelected=true;
 
-
-                    if(player.equals("1")){
-                        FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                String gameId="";
-                                for(DocumentSnapshot dc : queryDocumentSnapshots){
-                                    gameId=dc.getId();
-                                    Map<String, Object> updates=new HashMap<>();
-
-                                    updates.put("character1",item.getName());
-                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                        ///להוסיף את השם של הדמות(item) שנבחרה למאגר נתונים
+                    if (player.equals("1")) {
+                        updateCharacterInRequest("character1", item.getName());
+                    } else if (player.equals("2")) {
+                        updateCharacterInRequest("character2", item.getName());
                     }
-                    else if(player.equals("2")){
-                        ///להוסיף את השם של הדמות(item) שנבחרה למאגר נתונים
-                        FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                String gameId="";
-                                for(DocumentSnapshot dc : queryDocumentSnapshots){
-                                    gameId=dc.getId();
-                                    Map<String, Object> updates=new HashMap<>();
+                    fetchSecretCharactersAndDoSomething();
+                    fetchCurrentTurn();
 
-                                    updates.put("character2",item.getName());
-                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
 
-                    collectionRefRequest.whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            for (DocumentSnapshot dc : queryDocumentSnapshots) {
-                                Map<String, Object> updates = new HashMap<>();
-                                secretChar1 = dc.getString("character1");
-                                secretChar2 = dc.getString("character2");
-
-                            }
-                        }
-                    });
+//                    if(player.equals("1")){
+//                        FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                                String gameId="";
+//                                for(DocumentSnapshot dc : queryDocumentSnapshots){
+//                                    gameId=dc.getId();
+//                                    Map<String, Object> updates=new HashMap<>();
+//
+//                                    updates.put("character1",item.getName());
+//                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @Override
+//                                        public void onSuccess(Void unused) {
+//                                        }
+//                                    }).addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        });
+//                        ///להוסיף את השם של הדמות(item) שנבחרה למאגר נתונים
+//                    }
+//                    else if(player.equals("2")){
+//                        ///להוסיף את השם של הדמות(item) שנבחרה למאגר נתונים
+//                        FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                                String gameId="";
+//                                for(DocumentSnapshot dc : queryDocumentSnapshots){
+//                                    gameId=dc.getId();
+//                                    Map<String, Object> updates=new HashMap<>();
+//
+//                                    updates.put("character2",item.getName());
+//                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @Override
+//                                        public void onSuccess(Void unused) {
+//                                        }
+//                                    }).addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        });
+//                    }
+//
+//                    collectionRefRequest.whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            for (DocumentSnapshot dc : queryDocumentSnapshots) {
+//                                Map<String, Object> updates = new HashMap<>();
+//                                secretChar1 = dc.getString("character1");
+//                                secretChar2 = dc.getString("character2");
+//
+//                            }
+//                        }
+//                    });
 
 
                     spinner.setVisibility(View.VISIBLE);
@@ -176,6 +184,14 @@ public class mainGame extends AppCompatActivity {
 ///////////////////////////////////////////////////////////////////כל מה שבתוך הסוגריים למעלה קורה רק כאשר לוחצים על דמות///////////////////////////////
 
         //gameViewModel.myCharacters.observe(new );
+
+
+
+
+
+
+
+
 
         gameViewModel.myCharacters.observe(this, new Observer<ArrayList<ACharacter>>() {
                     @Override
@@ -209,43 +225,19 @@ public class mainGame extends AppCompatActivity {
                 R.array.questions_array,
                 android.R.layout.simple_spinner_item
         );
-// Specify the layout to use when the list of choices appears.
-
-
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                ////הסבר למה שקורה פה: אם התור הוא של משתמש 2 אז הדמות הסודית היא הדמות של משתמש 1 והפוך. למעלה דליתי את המידע בפעולות מהפייר סטור. אני משתמש בפעולה שלוקחת את השם של הדמות הסודית ובכך היא מוצאת את הדמות במערך ומציבה אותה במשתנה secret character
+                       if (currentTurn == null) {
+                      // Handle the case where currentTurn is not yet fetched
+                      Log.w("Spinner", "Current turn is not yet fetched");
+                         currentTurn="2";
+                        }
 
-                /////////////////////////////////////////////////////
-//                FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(mainGame.this, "w", Toast.LENGTH_SHORT).show();
-//
-//                        documentRefP1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//                            @Override
-//                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                                if (error != null) {
-//                                    Log.w("FireStore", "fail", error);
-//                                    return;
-//                                }
-//                                if (value != null && value.exists()) {
-//                                    if (value.getBoolean("characterP1")) {
-//
-//
-//                                    }
-//                                }
-//                            }
-//                        });
-//                    }
-//                    });
-
-
-                        ////////////////////////////////////////////////////////////////////
-                    ////הסבר למה שקורה פה: אם התור הוא של משתמש 2 אז הדמות הסודית היא הדמות של משתמש 1 והפוך. למעלה דליתי את המידע בפעולות מהפייר סטור. אני משתמש בפעולה שלוקחת את השם של הדמות הסודית ובכך היא מוצאת את הדמות במערך ומציבה אותה במשתנה secret character
                         if (currentTurn.equals("2")) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
                             secretCharacter = gameViewModel.getSecretChar(secretChar1);///לבקש את הדמות של המשתמש ה1 מהפייר סטור
                         }
@@ -255,8 +247,16 @@ public class mainGame extends AppCompatActivity {
 
 
                         if (pos == 1) {
-                            if (secretCharacter.getHairColor() == PersonColor.YELLOW)
+                            if (secretCharacter.getHairColor() == PersonColor.YELLOW) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptBlondes();
+                                    }
+                                }, 2000);
+                            }
                             else if (secretCharacter.getHairColor() != PersonColor.YELLOW) {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
                                 final Handler handler = new Handler();
@@ -268,19 +268,43 @@ public class mainGame extends AppCompatActivity {
                                 }, 2000);
                             }
 
-
                         }
                         if (pos == 2) {
-                            if (secretCharacter.getHairColor() == PersonColor.RED)
+                            if (secretCharacter.getHairColor() == PersonColor.RED) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptRedHair();
+                                    }
+                                }, 2000);
+                            }
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
-
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipRedHair();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 3) {
-                            if (secretCharacter.getHairColor() == PersonColor.BROWN)
+                            if (secretCharacter.getHairColor() == PersonColor.BROWN) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else if (secretCharacter.getHairColor() != PersonColor.BROWN) {
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptBrownHair();
+                                    }
+                                }, 2000);
+                            }
+
+                            else  {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -293,34 +317,116 @@ public class mainGame extends AppCompatActivity {
                         }
 
                         if (pos == 4) {
-                            if (secretCharacter.getEyeColor() == PersonColor.BLUE)
+                            if (secretCharacter.getEyeColor() == PersonColor.BLUE){
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptBlueEyes();
+                                    }
+                                }, 2000);
+
+                                }
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipBlueEyes();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 5) {
-                            if (secretCharacter.getEyeColor() == PersonColor.GREEN)
+                            if (secretCharacter.getEyeColor() == PersonColor.GREEN) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptGreenEyes();
+                                    }
+                                }, 2000);
+
+                            }
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipGreenEyes();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 6) {
-                            if (secretCharacter.getEyeColor() == PersonColor.BROWN)
+                            if (secretCharacter.getEyeColor() == PersonColor.BROWN) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptBrownEyes();
+                                    }
+                                }, 2000);
+                            }
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipBrownEyes();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 7) {
-                            if (secretCharacter.getSkinColor() == PersonColor.WHITE)
+                            if (secretCharacter.getSkinColor() == PersonColor.WHITE) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipBlackSkinEyes();
+                                    }
+                                }, 2000);
+                            }
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipWhiteSkinEyes();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 8) {
-                            if (secretCharacter.getSkinColor() == PersonColor.BLACK)
+                            if (secretCharacter.getSkinColor() == PersonColor.BLACK) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipWhiteSkinEyes();
+                                    }
+                                }, 2000);
+                            }
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipBlackSkinEyes();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 9) {
                             if (secretCharacter.isBigNose() == true)
@@ -335,10 +441,26 @@ public class mainGame extends AppCompatActivity {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
                         }
                         if (pos == 11) {
-                            if (secretCharacter.isHasGlasses() == true)
+                            if (secretCharacter.isHasGlasses() == true) {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
-                            else
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipExceptGlasses();
+                                    }
+                                }, 2000);
+                            }
+                            else {
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        gameViewModel.flipGlasses();
+                                    }
+                                }, 2000);
+                            }
                         }
                         if (pos == 12) {
                             if (secretCharacter.isHasBeard() == true)
@@ -391,6 +513,69 @@ public class mainGame extends AppCompatActivity {
 
             }
 
+    public void updateCharacterInRequest (String characterField, String characterName) {
+        FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot dc : queryDocumentSnapshots) {
+                            String gameId = dc.getId();
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put(characterField, characterName);
+                            FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            // Character updated successfully
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Handle the error
+                                        }
+                                    });
+                        }
+                    }
+                });
+    }
 
+
+
+    ////////////////////////////////////
+
+
+    private void fetchSecretCharactersAndDoSomething() {
+        CollectionReference collectionRefRequest = FirebaseFirestore.getInstance().collection("Requests");
+        collectionRefRequest.whereEqualTo("idGame", GameId).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot dc : queryDocumentSnapshots) {
+                            secretChar1 = dc.getString("character1");
+                            secretChar2 = dc.getString("character2");
+
+                            // Now you can use secretChar1 and secretChar2
+                        }
+                    }
+                });
+    }
+
+
+    private void fetchCurrentTurn() {
+        CollectionReference collectionRefGame = FirebaseFirestore.getInstance().collection("Games");
+        collectionRefGame.whereEqualTo("GameId", GameId).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot dc : queryDocumentSnapshots) {
+                            currentTurn = dc.getString("currentTurn");
+
+                            // Now you can use currentTurn
+                            //handleCurrentTurn();
+                        }
+                    }
+                });
+    }
 
 }
