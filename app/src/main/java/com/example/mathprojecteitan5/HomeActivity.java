@@ -99,6 +99,7 @@ public class HomeActivity extends AppCompatActivity {
                                         intent.putExtra("turn", "1");
                                         intent.putExtra("player", "1");
                                         intent.putExtra("GameId", GameId);
+                                        intent.putExtra("gameDocId",gameDocId);
                                         startActivity(intent);
                                     }
                                 }
@@ -162,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
                         intent.putExtra("turn", "2");
                         intent.putExtra("player", "2");
                         intent.putExtra("GameId", GameId);
-
+                        intent.putExtra("gameDocId", gameId);
 
                         startActivity(intent);
                     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,38 +62,58 @@ public class mainGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
-        rcShowCharacters=findViewById(R.id.rcShowCharacters);
-        questionButton=findViewById(R.id.questionButton);
-        choseButton=findViewById(R.id.choseButton);
-        selectedPic=findViewById(R.id.selectedPic);
-        takeGuess=findViewById(R.id.takeAguess);
-        spinner =(Spinner) findViewById(R.id.questions_spinner);
-        auth=FirebaseAuth.getInstance();
-        turn=findViewById(R.id.turn);
-        pTurn=intent.getStringExtra("turn");
-        player=intent.getStringExtra("player");
-        GameId=intent.getStringExtra("GameId");
-        CollectionReference collectionRefRequest=FirebaseFirestore.getInstance().collection("Requests");
-        CollectionReference collectionRefGame=FirebaseFirestore.getInstance().collection("Games");
-        DocumentReference documentRefP1=collectionRefRequest.document("characterP1");
-        DocumentReference documentRefP2=collectionRefRequest.document("characterP2");
+        rcShowCharacters = findViewById(R.id.rcShowCharacters);
+        questionButton = findViewById(R.id.questionButton);
+        choseButton = findViewById(R.id.choseButton);
+        selectedPic = findViewById(R.id.selectedPic);
+        takeGuess = findViewById(R.id.takeAguess);
+        spinner = (Spinner) findViewById(R.id.questions_spinner);
+        auth = FirebaseAuth.getInstance();
+        turn = findViewById(R.id.turn);
+        pTurn = intent.getStringExtra("turn");
+        player = intent.getStringExtra("player");
+        GameId = intent.getStringExtra("GameId");
+        String gameDocId = getIntent().getStringExtra("gameDocId");
+        gameViewModel.setGameCode(GameId);
+        gameViewModel.setGameDocId(gameDocId);
+        CollectionReference collectionRefRequest = FirebaseFirestore.getInstance().collection("Requests");
+        CollectionReference collectionRefGame = FirebaseFirestore.getInstance().collection("Games");
+        DocumentReference documentRefP1 = collectionRefRequest.document("characterP1");
+        DocumentReference documentRefP2 = collectionRefRequest.document("characterP2");
 
-        Request request1= new Request(GameId,auth.getCurrentUser().getEmail());
+        Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
         FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(mainGame.this,"added user",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainGame.this, "added user", Toast.LENGTH_SHORT).show();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(mainGame.this,"failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainGame.this, "failed", Toast.LENGTH_SHORT).show();
             }
         });
 
+        gameViewModel.isPlayerTurn( pTurn, new GameViewModel.Callback<Boolean>() {
+            @Override
+            public void onResult(Boolean isTurn) {
+                if (isTurn) {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    init();
+                } else {
+                    init();
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }
+        });
+    }
+
+
+        public void init(){
         myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ACharacter item) {
@@ -113,69 +134,6 @@ public class mainGame extends AppCompatActivity {
                     fetchSecretCharactersAndDoSomething();
                     fetchCurrentTurn();
 
-
-//                    if(player.equals("1")){
-//                        FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                String gameId="";
-//                                for(DocumentSnapshot dc : queryDocumentSnapshots){
-//                                    gameId=dc.getId();
-//                                    Map<String, Object> updates=new HashMap<>();
-//
-//                                    updates.put("character1",item.getName());
-//                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void unused) {
-//                                        }
-//                                    }).addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        });
-//                        ///להוסיף את השם של הדמות(item) שנבחרה למאגר נתונים
-//                    }
-//                    else if(player.equals("2")){
-//                        ///להוסיף את השם של הדמות(item) שנבחרה למאגר נתונים
-//                        FirebaseFirestore.getInstance().collection("Requests").whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                String gameId="";
-//                                for(DocumentSnapshot dc : queryDocumentSnapshots){
-//                                    gameId=dc.getId();
-//                                    Map<String, Object> updates=new HashMap<>();
-//
-//                                    updates.put("character2",item.getName());
-//                                    FirebaseFirestore.getInstance().collection("Requests").document(gameId).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void unused) {
-//                                        }
-//                                    }).addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        });
-//                    }
-//
-//                    collectionRefRequest.whereEqualTo("idGame", GameId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                            for (DocumentSnapshot dc : queryDocumentSnapshots) {
-//                                Map<String, Object> updates = new HashMap<>();
-//                                secretChar1 = dc.getString("character1");
-//                                secretChar2 = dc.getString("character2");
-//
-//                            }
-//                        }
-//                    });
-
-
                     spinner.setVisibility(View.VISIBLE);
                     Toast.makeText(mainGame.this, "Selected character is "+item.getName() ,Toast.LENGTH_SHORT).show();
                     turn.setVisibility(View.VISIBLE);
@@ -184,16 +142,6 @@ public class mainGame extends AppCompatActivity {
             }
 
         });
-///////////////////////////////////////////////////////////////////כל מה שבתוך הסוגריים למעלה קורה רק כאשר לוחצים על דמות///////////////////////////////
-
-        //gameViewModel.myCharacters.observe(new );
-
-
-
-
-
-
-
 
 
         gameViewModel.myCharacters.observe(this, new Observer<ArrayList<ACharacter>>() {

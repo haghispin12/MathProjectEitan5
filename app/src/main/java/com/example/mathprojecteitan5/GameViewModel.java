@@ -1,18 +1,27 @@
 package com.example.mathprojecteitan5;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mathprojecteitan5.mathproject.MyUserAdapter;
 import com.example.mathprojecteitan5.mathproject.userName;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Closeable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameViewModel extends ViewModel {
     private ArrayList<ACharacter> Characters;
@@ -21,6 +30,9 @@ public class GameViewModel extends ViewModel {
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     FirebaseAuth auth=FirebaseAuth.getInstance();
     String documentPath="";
+    String gameCode;
+    String gameDocId;
+    CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Games");
     DocumentReference docRef=db.collection("Games").document();
 
     public GameViewModel() {
@@ -54,10 +66,80 @@ public class GameViewModel extends ViewModel {
 
     }
 
+    public String getGameDocId() {
+        return gameDocId;
+    }
+
+    public void setGameDocId(String gameDocId) {
+        this.gameDocId = gameDocId;
+    }
+
+    public String getGameCode() {
+        return gameCode;
+    }
+
+    public void setGameCode(String gameCode) {
+        this.gameCode = gameCode;
+    }
 
 
 
 
+    public void isPlayerTurn(int playerTurn, Callback<Boolean> callback) {
+        if (collectionRef == null || gameCode == null || gameCode.isEmpty()) {
+            callback.onResult(false);
+            return;
+        }
+
+        collectionRef.whereEqualTo("GameId", gameCode)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            callback.onResult(false);
+                            return;
+                        }
+
+                        if (!snapshots.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = snapshots.getDocuments().get(0);
+                            Long currentTurnLong = documentSnapshot.getLong("currentTurn");
+                            if (currentTurnLong != null) {
+                                long currentTurn = currentTurnLong;
+                                boolean isTurn = (currentTurn == playerTurn);
+                                callback.onResult(isTurn);
+                            } else {
+                                callback.onResult(false);
+                            }
+                        } else {
+                            callback.onResult(false);
+                        }
+                    }
+                });
+    }
+
+
+    public void finishMyTurn(){
+        collectionRef.whereEqualTo("GameId",gameCode).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot dc : queryDocumentSnapshots){
+                    if (dc.getLong("currentTurn")== 1) {
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("currentTurn", 2);
+                        collectionRef.document(gameDocId).update(updates);
+                    } else if (dc.getLong("currentTurn")==2) {
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("currentTurn", 1);
+                        collectionRef.document(gameDocId).update(updates);
+                    }
+                }
+            }
+        });
+    }
+
+    interface Callback<T> {
+        void onResult(T result);
+    }
     public ACharacter getSecretChar (String name){
         for(int i=0;i<Characters.size();i++){
             if(Characters.get(i).getName().equals(name))
