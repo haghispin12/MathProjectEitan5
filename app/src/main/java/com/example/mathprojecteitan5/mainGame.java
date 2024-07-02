@@ -55,6 +55,7 @@ public class mainGame extends AppCompatActivity {
     String secretChar1;
     String secretChar2;
     String currentTurn;
+    Button takeGuess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class mainGame extends AppCompatActivity {
         questionButton=findViewById(R.id.questionButton);
         choseButton=findViewById(R.id.choseButton);
         selectedPic=findViewById(R.id.selectedPic);
+        takeGuess=findViewById(R.id.takeAguess);
         spinner =(Spinner) findViewById(R.id.questions_spinner);
         auth=FirebaseAuth.getInstance();
         turn=findViewById(R.id.turn);
@@ -100,6 +102,7 @@ public class mainGame extends AppCompatActivity {
                     choseButton.setVisibility(View.GONE);
                     selectedPic.setImageResource(secretCharacter.getPicture());
                     selectedPic.setVisibility(View.VISIBLE);
+                    takeGuess.setVisibility(View.VISIBLE);
                     flagSelected=true;
 
                     if (player.equals("1")) {
@@ -213,7 +216,15 @@ public class mainGame extends AppCompatActivity {
             }
         });
 
+        takeGuess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mainGame.this, "congrats-you won", Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(mainGame.this, HomeActivity.class) ;
+                startActivity(intent);
 
+            }
+        });
 ////////////////////////////////////////////////////////////////שמתי את זה פה במקום בonclick
 
 
