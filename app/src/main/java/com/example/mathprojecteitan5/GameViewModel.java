@@ -65,7 +65,7 @@ public class GameViewModel extends ViewModel {
       myCharacters.setValue(Characters);
         this.userGame =new UserGame();
         flagChanged=new MutableLiveData<>();
-        flagChanged.setValue(false);
+
 
     }
 
@@ -139,7 +139,9 @@ public class GameViewModel extends ViewModel {
                 }
             }
         });
-        if(flagChanged.getValue()==true)
+        if(flagChanged==null)
+            flagChanged.setValue(true);
+       else if(flagChanged.getValue()==true)
             flagChanged.setValue(false);
         else
             flagChanged.setValue(true);

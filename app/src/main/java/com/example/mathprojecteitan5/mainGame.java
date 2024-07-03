@@ -59,6 +59,7 @@ public class mainGame extends AppCompatActivity {
     Button takeGuess;
     Boolean pressed=false;
     Boolean firstTurn=true;
+    TextView noTurn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class mainGame extends AppCompatActivity {
         questionButton = findViewById(R.id.questionButton);
         choseButton = findViewById(R.id.choseButton);
         selectedPic = findViewById(R.id.selectedPic);
+        noTurn=findViewById(R.id.noTurn);
         takeGuess = findViewById(R.id.takeAguess);
         spinner = (Spinner) findViewById(R.id.questions_spinner);
         auth = FirebaseAuth.getInstance();
@@ -95,95 +97,106 @@ public class mainGame extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
-        Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
-        if(pressed==false) {
-            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(ACharacter item) {
-                    //
-                    if (flagSelected == false) {
-                        secretCharacter = item;
-                        choseButton.setVisibility(View.GONE);
-                        selectedPic.setImageResource(secretCharacter.getPicture());
-                        selectedPic.setVisibility(View.VISIBLE);
-                        takeGuess.setVisibility(View.VISIBLE);
-                        flagSelected = true;
+//        Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
 
-//                        if (player.equals("1")) {
-//                            updateCharacterInRequest("character1", item.getName());
-//                        } else if (player.equals("2")) {
-//                            updateCharacterInRequest("character2", item.getName());
-//                        }
-//                        fetchSecretCharactersAndDoSomething();
-//                        fetchCurrentTurn();
 
-                        spinner.setVisibility(View.VISIBLE);
-                        Toast.makeText(mainGame.this, "Selected character is " + item.getName(), Toast.LENGTH_SHORT).show();
-                        turn.setVisibility(View.VISIBLE);
+            ///////////////////////////פה למטה זה הפעולה שקוראת כשאתה לוחץ על דמות////////////
+//            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(ACharacter item) {
+//                    //
+//                    if (flagSelected == false) {
+//                        secretCharacter = item;
+//                        choseButton.setVisibility(View.GONE);
+//                        selectedPic.setImageResource(secretCharacter.getPicture());
+//                        selectedPic.setVisibility(View.VISIBLE);
+//                        takeGuess.setVisibility(View.VISIBLE);
+//                        flagSelected = true;
+//
+//                        Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
+//
+//                        FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(mainGame.this, "added user", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(mainGame.this, "failed", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+////                        if (player.equals("1")) {
+////                            updateCharacterInRequest("character1", item.getName());
+////                        } else if (player.equals("2")) {
+////                            updateCharacterInRequest("character2", item.getName());
+////                        }
+////                        fetchSecretCharactersAndDoSomething();
+////                        fetchCurrentTurn();
+//
+//                        spinner.setVisibility(View.VISIBLE);
+//                        Toast.makeText(mainGame.this, "Selected character is " + item.getName(), Toast.LENGTH_SHORT).show();
+//                        turn.setVisibility(View.VISIBLE);
+//
+//                    }
+//                }
+//
+//            });
 
-                    }
-                }
 
-            });
-            pressed=true;
-        }
-        FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(mainGame.this, "added user", Toast.LENGTH_SHORT).show();
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(mainGame.this, "failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-        if(firstTurn==true&&pTurn==1)
-            init();
-        else {
+//        if(firstTurn==true&&pTurn==1){
             gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
                 @Override
                 public void onResult(Boolean isTurn) {
                     if (isTurn) {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        turn.setVisibility(View.VISIBLE);
                         init();
                     } else {
                         init();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        turn.setVisibility(View.GONE);
+                        noTurn.setVisibility(View.VISIBLE);
                     }
                 }
             });
             firstTurn=false;
-        }
+//        }
+//        else {
+//            init();
+//
+//        }
 
     }
 
 
         public void init(){
 
-        if(firstTurn==false) {
-            gameViewModel.flagChanged.observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean aBoolean) {
-
-                    gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
-                        @Override
-                        public void onResult(Boolean isTurn) {
-                            if (isTurn) {
-                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                init();
-                            } else {
-                                init();
-                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            }
-                        }
-                    });
-                }
-            });
-        }
+//            gameViewModel.flagChanged.observe(this, new Observer<Boolean>() {
+//                @Override
+//                public void onChanged(Boolean aBoolean) {
+//
+//                    gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
+//                        @Override
+//                        public void onResult(Boolean isTurn) {
+//                            if (isTurn) {
+//                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                                turn.setVisibility(View.VISIBLE);
+//                                init();
+//                            } else {
+//                                init();
+//                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                                turn.setVisibility(View.GONE);
+//                                noTurn.setVisibility(View.VISIBLE);
+//                            }
+//                        }
+//                    });
+//                }
+//            });
+            ////////פעולה חשובה למעלה!
 
 //            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
 //                @Override
@@ -213,6 +226,52 @@ public class mainGame extends AppCompatActivity {
 //                }
 //
 //            });
+
+
+
+
+            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(ACharacter item) {
+                    //
+                    if (flagSelected == false) {
+                        secretCharacter = item;
+                        choseButton.setVisibility(View.GONE);
+                        selectedPic.setImageResource(secretCharacter.getPicture());
+                        selectedPic.setVisibility(View.VISIBLE);
+                        takeGuess.setVisibility(View.VISIBLE);
+                        flagSelected = true;
+
+
+//                        if (player.equals("1")) {
+//                            updateCharacterInRequest("character1", item.getName());
+//                        } else if (player.equals("2")) {
+//                            updateCharacterInRequest("character2", item.getName());
+//                        }
+//                        fetchSecretCharactersAndDoSomething();
+//                        fetchCurrentTurn();
+
+                        spinner.setVisibility(View.VISIBLE);
+                        Toast.makeText(mainGame.this, "Selected character is " + item.getName(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+            });
+
+            Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
+            FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(mainGame.this, "added user", Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(mainGame.this, "failed", Toast.LENGTH_SHORT).show();
+                }
+            });
         gameViewModel.myCharacters.observe(this, new Observer<ArrayList<ACharacter>>() {
                     @Override
                     public void onChanged(ArrayList<ACharacter> aCharacters) {
@@ -256,13 +315,13 @@ public class mainGame extends AppCompatActivity {
                        if (currentTurn == null) {
                       // Handle the case where currentTurn is not yet fetched
                       Log.w("Spinner", "Current turn is not yet fetched");
-                       //  currentTurn=2;
+//                        currentTurn=2L;
                         }
 
-                        if (currentTurn.equals("2")) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
+                       else if (currentTurn==2) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
                             secretCharacter = gameViewModel.getSecretChar(secretChar1);///לבקש את הדמות של המשתמש ה1 מהפייר סטור
                         }
-                        else if (currentTurn.equals("1")) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
+                        else if (currentTurn==1) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
                             secretCharacter = gameViewModel.getSecretChar(secretChar2);///לבקש את השם של הדמות של המשתמש ה2 מהפייר סטור
                         }
 
