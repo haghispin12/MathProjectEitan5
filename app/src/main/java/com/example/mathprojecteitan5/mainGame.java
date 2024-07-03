@@ -154,11 +154,11 @@ public class mainGame extends AppCompatActivity {
                         turn.setVisibility(View.VISIBLE);
                         init();
                     } else {
-                        init();
                         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         turn.setVisibility(View.GONE);
                         noTurn.setVisibility(View.VISIBLE);
+                        init();
                     }
                 }
             });
@@ -312,18 +312,18 @@ public class mainGame extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                 ////הסבר למה שקורה פה: אם התור הוא של משתמש 2 אז הדמות הסודית היא הדמות של משתמש 1 והפוך. למעלה דליתי את המידע בפעולות מהפייר סטור. אני משתמש בפעולה שלוקחת את השם של הדמות הסודית ובכך היא מוצאת את הדמות במערך ומציבה אותה במשתנה secret character
-                       if (currentTurn == null) {
-                      // Handle the case where currentTurn is not yet fetched
-                      Log.w("Spinner", "Current turn is not yet fetched");
-//                        currentTurn=2L;
-                        }
-
-                       else if (currentTurn==2) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
-                            secretCharacter = gameViewModel.getSecretChar(secretChar1);///לבקש את הדמות של המשתמש ה1 מהפייר סטור
-                        }
-                        else if (currentTurn==1) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
-                            secretCharacter = gameViewModel.getSecretChar(secretChar2);///לבקש את השם של הדמות של המשתמש ה2 מהפייר סטור
-                        }
+//                       if (currentTurn == null) {
+//                      // Handle the case where currentTurn is not yet fetched
+//                      Log.w("Spinner", "Current turn is not yet fetched");
+////                        currentTurn=2L;
+//                        }
+//
+//                       else if (currentTurn==2) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
+//                            secretCharacter = gameViewModel.getSecretChar(secretChar1);///לבקש את הדמות של המשתמש ה1 מהפייר סטור
+//                        }
+//                        else if (currentTurn==1) {///לפנות לturn בפייר סטור ולשאול אם הוא שווה ל1 או 2
+//                            secretCharacter = gameViewModel.getSecretChar(secretChar2);///לבקש את השם של הדמות של המשתמש ה2 מהפייר סטור
+//                        }
 
 
                         if (pos == 1) {

@@ -132,19 +132,24 @@ public class GameViewModel extends ViewModel {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("currentTurn", 2);
                         collectionRef.document(gameDocId).update(updates);
+                        if(flagChanged.getValue()==true)
+                            flagChanged.setValue(false);
+                        else
+                            flagChanged.setValue(true);
                     } else if (dc.getLong("currentTurn")==2) {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("currentTurn", 1);
                         collectionRef.document(gameDocId).update(updates);
+                        if(flagChanged.getValue()==true)
+                            flagChanged.setValue(false);
+                        else
+                            flagChanged.setValue(true);
                     }
                 }
             }
         });
 
-       if(flagChanged.getValue()==true)
-            flagChanged.setValue(false);
-        else
-            flagChanged.setValue(true);
+
     }
 
     interface Callback<T> {
