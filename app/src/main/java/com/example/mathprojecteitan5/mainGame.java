@@ -60,6 +60,7 @@ public class mainGame extends AppCompatActivity {
     Boolean pressed=false;
     Boolean firstTurn=true;
     TextView noTurn;
+    int test=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +72,12 @@ public class mainGame extends AppCompatActivity {
         questionButton = findViewById(R.id.questionButton);
         choseButton = findViewById(R.id.choseButton);
         selectedPic = findViewById(R.id.selectedPic);
-        noTurn=findViewById(R.id.noTurn);
+        noTurn = findViewById(R.id.noTurn);
         takeGuess = findViewById(R.id.takeAguess);
         spinner = (Spinner) findViewById(R.id.questions_spinner);
         auth = FirebaseAuth.getInstance();
         turn = findViewById(R.id.turn);
-        pTurn=intent.getIntExtra("turn",0);
+        pTurn = intent.getIntExtra("turn", 0);
         player = intent.getStringExtra("player");
         GameId = intent.getStringExtra("GameId");
         String gameDocId = getIntent().getStringExtra("gameDocId");
@@ -100,7 +101,7 @@ public class mainGame extends AppCompatActivity {
 //        Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
 
 
-            ///////////////////////////פה למטה זה הפעולה שקוראת כשאתה לוחץ על דמות////////////
+        ///////////////////////////פה למטה זה הפעולה שקוראת כשאתה לוחץ על דמות////////////
 ///            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(ACharacter item) {
@@ -143,9 +144,24 @@ public class mainGame extends AppCompatActivity {
 //                }
 //
 //            });
+        Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
+        FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(mainGame.this, "added user", Toast.LENGTH_SHORT).show();
 
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mainGame.this, "failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-//        if(firstTurn==true&&pTurn==1){
+//       if(firstTurn==true&&pTurn==1){
+//           firstTurn=false;
+//           init();
+//    }
             gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
                 @Override
                 public void onResult(Boolean isTurn) {
@@ -154,15 +170,18 @@ public class mainGame extends AppCompatActivity {
                         turn.setVisibility(View.VISIBLE);
                         init();
                     } else {
-                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         turn.setVisibility(View.GONE);
                         noTurn.setVisibility(View.VISIBLE);
                         init();
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }
             });
-            firstTurn=false;
+
+
+
+
 //        }
 //        else {
 //            init();
@@ -174,28 +193,30 @@ public class mainGame extends AppCompatActivity {
 
         public void init(){
 
-//            gameViewModel.flagChanged.observe(this, new Observer<Boolean>() {
-//                @Override
-//                public void onChanged(Boolean aBoolean) {
-//
-//                    gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
-//                        @Override
-//                        public void onResult(Boolean isTurn) {
-//                            if (isTurn) {
-//                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                                turn.setVisibility(View.VISIBLE);
-//                                init();
-//                            } else {
-//                                init();
-//                                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                                turn.setVisibility(View.GONE);
-//                                noTurn.setVisibility(View.VISIBLE);
-//                            }
-//                        }
-//                    });
-//                }
-//            });
+            gameViewModel.flagChanged.observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    gameViewModel.isPlayerTurn(pTurn, new GameViewModel.Callback<Boolean>() {
+                @Override
+                public void onResult(Boolean isTurn) {
+                    if (isTurn) {
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        turn.setVisibility(View.VISIBLE);
+                        init();
+                    } else {
+                        turn.setVisibility(View.GONE);
+                        noTurn.setVisibility(View.VISIBLE);
+                        init();
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
+
+                    }
+                }
+            });
+                }
+            });
             ////////פעולה חשובה למעלה!
 
 //            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
@@ -259,19 +280,7 @@ public class mainGame extends AppCompatActivity {
 
             });
 
-            Request request1 = new Request(GameId, auth.getCurrentUser().getEmail());
-            FirebaseFirestore.getInstance().collection("Requests").document().set(request1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(mainGame.this, "added user", Toast.LENGTH_SHORT).show();
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(mainGame.this, "failed", Toast.LENGTH_SHORT).show();
-                }
-            });
         gameViewModel.myCharacters.observe(this, new Observer<ArrayList<ACharacter>>() {
                     @Override
                     public void onChanged(ArrayList<ACharacter> aCharacters) {

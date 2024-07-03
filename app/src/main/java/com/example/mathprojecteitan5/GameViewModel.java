@@ -32,7 +32,8 @@ public class GameViewModel extends ViewModel {
     String documentPath="";
     String gameCode;
     String gameDocId;
-    MutableLiveData<Boolean> flagChanged;
+    boolean firstTurn=true;
+    MutableLiveData<Boolean> flagChanged=new MutableLiveData<>();
     CollectionReference collectionRef = FirebaseFirestore.getInstance().collection("Games");
     DocumentReference docRef=db.collection("Games").document();
 
@@ -64,8 +65,7 @@ public class GameViewModel extends ViewModel {
        Characters.add(new ACharacter("Eden", false, PersonColor.BROWN, PersonColor.WHITE, PersonColor.BLUE, true, true, false, false, false, false,R.drawable.eden));
       myCharacters.setValue(Characters);
         this.userGame =new UserGame();
-        flagChanged=new MutableLiveData<>();
-        flagChanged.setValue(true);
+//        flagChanged=new MutableLiveData<>();
 
 
     }
@@ -132,15 +132,25 @@ public class GameViewModel extends ViewModel {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("currentTurn", 2);
                         collectionRef.document(gameDocId).update(updates);
-                        if(flagChanged.getValue()==true)
-                            flagChanged.setValue(false);
-                        else
+                        if(firstTurn=true) {
+                            firstTurn=false;
                             flagChanged.setValue(true);
-                    } else if (dc.getLong("currentTurn")==2) {
+                        }
+                         else  if(flagChanged.getValue()==true)
+                          flagChanged.setValue(false);
+                         else
+                           flagChanged.setValue(true);
+
+                    }
+                    else if (dc.getLong("currentTurn")==2) {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("currentTurn", 1);
                         collectionRef.document(gameDocId).update(updates);
-                        if(flagChanged.getValue()==true)
+                        if(firstTurn=true) {
+                            firstTurn=false;
+                            flagChanged.setValue(true);
+                        }
+                        else if(flagChanged.getValue()==true)
                             flagChanged.setValue(false);
                         else
                             flagChanged.setValue(true);
