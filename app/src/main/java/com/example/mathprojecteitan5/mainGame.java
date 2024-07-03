@@ -634,14 +634,17 @@ public class mainGame extends AppCompatActivity {
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
                             else
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                            gameViewModel.finishMyTurn();
+
                         }
                         if (pos == 17) {
                             if (secretCharacter.getHairColor() == PersonColor.BALD)
                                 Toast.makeText(mainGame.this, "YES", Toast.LENGTH_SHORT).show();
                             else
                                 Toast.makeText(mainGame.this, "No", Toast.LENGTH_SHORT).show();
+                            gameViewModel.finishMyTurn();
+
                         }
-                gameViewModel.finishMyTurn();
 
             }
 
