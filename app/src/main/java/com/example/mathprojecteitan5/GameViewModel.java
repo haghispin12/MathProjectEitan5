@@ -88,7 +88,6 @@ public class GameViewModel extends ViewModel {
 
 
 
-
     public void isPlayerTurn(int playerTurn, Callback<Boolean> callback) {
         if (collectionRef == null || gameCode == null || gameCode.isEmpty()) {
             callback.onResult(false);
@@ -132,28 +131,28 @@ public class GameViewModel extends ViewModel {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("currentTurn", 2);
                         collectionRef.document(gameDocId).update(updates);
-                        if(firstTurn=true) {
-                            firstTurn=false;
-                            flagChanged.setValue(true);
-                        }
-                         else  if(flagChanged.getValue()==true)
-                          flagChanged.setValue(false);
-                         else
-                           flagChanged.setValue(true);
+//                        if(firstTurn=true) {
+//                            firstTurn=false;
+//                            flagChanged.setValue(true);
+//                        }
+//                         else  if(flagChanged.getValue()==true)
+//                          flagChanged.setValue(false);
+//                         else
+//                           flagChanged.setValue(true);
 
                     }
                     else if (dc.getLong("currentTurn")==2) {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("currentTurn", 1);
                         collectionRef.document(gameDocId).update(updates);
-                        if(firstTurn=true) {
-                            firstTurn=false;
-                            flagChanged.setValue(true);
-                        }
-                        else if(flagChanged.getValue()==true)
-                            flagChanged.setValue(false);
-                        else
-                            flagChanged.setValue(true);
+//                        if(firstTurn=true) {
+//                            firstTurn=false;
+//                            flagChanged.setValue(true);
+//                        }
+//                        else if(flagChanged.getValue()==true)
+//                            flagChanged.setValue(false);
+//                        else
+//                            flagChanged.setValue(true);
                     }
                 }
             }
