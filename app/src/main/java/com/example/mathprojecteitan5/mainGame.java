@@ -101,7 +101,7 @@ public class mainGame extends AppCompatActivity {
 
 
             ///////////////////////////פה למטה זה הפעולה שקוראת כשאתה לוחץ על דמות////////////
-//            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
+///            myGameAdapter = new MyGameAdapter(gameViewModel.getCharacters(), new MyGameAdapter.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(ACharacter item) {
 //                    //
